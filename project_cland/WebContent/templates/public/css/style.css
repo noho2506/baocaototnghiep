@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+.wrapper-home {
+  /*      price*/
+  /*	Testimonials*/
+  /*	footer*/ }
+  .wrapper-home .menu-logo {
+    z-index: 1;
+    }
+    .wrapper-home .menu-logo .row {
+      min-height: 40px; }
+    .wrapper-home .menu-logo .logo {
+      display: inline; }
+    .wrapper-home .menu-logo .nav-menu {
+      display: inline;
+      margin-left: 350px;
+      padding-top: 10px; }
+    .wrapper-home .menu-logo .container {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0; }
+    .wrapper-home .menu-logo .item-menu {
+      display: inline-block;
+      padding-right: 28px; }
+    .wrapper-home .menu-logo .list-menu {
+    margin-left : 500px;
+      display: inline; }
+    .wrapper-home .menu-logo .link-menu {
+      text-decoration: none;
+      font-size: 14px;
+      text-weight:bold;
+      color: white; }
+    .wrapper-home .menu-logo .link-menu:hover {
+      color: #4bcaff; }
+    .wrapper-home .menu-logo .active a {
+      border-top: 3px solid #4bcaff;
+      color: #4bcaff;
+      padding-top: 10px; }
+  
+  .trangchu-img{
+  width : 100%;
+  height: 600px;
+  }
+  .home-slider .container{
+  margin: 0;
+  padding: 0;
+  }
+  .wrapper-home .home-slider .home-content {
+    position: absolute;
+    top: 80px;
+    left: 801px;
+    color: #ffffff;
+    background-color: #ffffff;
+    width: 470px;
+    /* border: 2px solid red; */
+    border-radius: 5%;
+    padding: 20px 16px;
+    }
+  
+.home-content-text {
+    margin-top: 30px;
+    width: 536px;
+    height: 115px;
+    font-size: 16px;
+    font-family: "Lato";
+    font-weight: 300; }
+  .gioithieu{
+  	margin : 30px 0px;
+  	padding : 30px 80px;
+  	background-color: #f1f2f2;
+  }
+   .gioithieu-content i{
+  	color: #ec1f27;
+  	margin-right:10px;
+  }
+  .tienich{
+  	background-color: #ffffff;
+  	padding : 30px 80px;
+  }
+  
+  .gioithieu-content h4{
+  	text-weight:bold;
+  	color:#ff0202;
+  }
+  .vitri{
+  	padding : 30px 80px;
+  	background-color: #f1f2f2;
+  }
+  .thietke{
+  	padding : 30px 80px;
+  	background-color: #ffffff;
+  }
+/*# sourceMappingURL=style.css.map */

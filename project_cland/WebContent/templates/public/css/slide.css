@@ -1,0 +1,22 @@
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .slider {
+        
+    position:relative;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+       color: black;
+    }
+    .slick-prev{
+      z-index: 1;
+
+    }
+
+    .slick-current {
+      opacity: 1;
+    }
