@@ -28,6 +28,14 @@ public class CommentLandDAO {
 			return null;
 		}
 	}
+	public CommentLand getItemName(int id) {
+		try {
+			String sql ="SELECT name FROM cmt_land WhERE id=? ";
+			return jdbcTemplate.queryForObject(sql,new Object[] {id}, new BeanPropertyRowMapper<CommentLand>(CommentLand.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	public List<CommentLand> getCmt(int id) {
 		String sql="SELECT id,name,email,cmt,create_day,id_land,sub_id FROM cmt_land WHERE id_land = ? AND sub_id= 0 ORDER BY id DESC";
@@ -42,4 +50,5 @@ public class CommentLandDAO {
 		String sql="SELECT id,name,email,cmt,create_day,id_land,sub_id FROM cmt_land WHERE sub_id = ?  ORDER BY id DESC";
 		return jdbcTemplate.query(sql, new Object[] {sub_id},new BeanPropertyRowMapper<CommentLand>(CommentLand.class));
 	}
+
 }

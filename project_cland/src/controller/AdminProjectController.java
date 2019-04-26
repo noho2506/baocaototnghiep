@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import constant.Defines;
 import model.bean.ImageProject;
 import model.bean.Project;
+import model.bean.User;
 import model.dao.ImgDAO;
 import model.dao.ProjectDAO;
 import util.FileUtil;
@@ -37,9 +38,14 @@ public class AdminProjectController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active7", "active");
 	}
 	@RequestMapping(value="/projects", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap, HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listProject", projectDAO.getItems());
 		return "admin.project.imdex";
 	}

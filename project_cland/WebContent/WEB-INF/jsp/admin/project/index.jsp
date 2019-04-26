@@ -5,6 +5,7 @@
                     <div class="outer">
                         <div class="inner bg-light lter">
                             <!--Begin Datatables-->
+                      
 <div class="row">
   <div class="col-lg-12">
         <div class="box">
@@ -61,7 +62,7 @@
                             </c:forEach>
                            
                     </tbody>                </table>
-                    <!-- The Modal -->
+s                    <!-- The Modal -->
             </div>
         </div>
     </div>
@@ -101,3 +102,4 @@
 	  }); 
 	}
 </script>
+

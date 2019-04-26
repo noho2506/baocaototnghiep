@@ -2,18 +2,22 @@ package constant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.bean.About;
-import model.bean.CommentLand;
-import model.bean.Land;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import model.bean.Land;
+import model.bean.User;
+/*@Configuration
+@EnableScheduling*/
 public class Defines {
 	// định nghĩa các thông số cho ứng dụng web
 	private String urlPublic;
@@ -255,4 +259,18 @@ public class Defines {
 		}
 		return dt;
 	}
+	public static User check(HttpServletRequest request){
+		HttpSession session=request.getSession();
+		//kiểm tra khi chưa nhập dữ liệu
+		User userLogin = (User) session.getAttribute("userLoginAdmin");
+		if (userLogin==null) {
+			return null;
+		}
+		return userLogin;
+		
+	}
+	/*@Scheduled(fixedDelay = 5000)
+    public void demoServiceMethod() {
+        System.out.println("Hồ THỊ NỞ");
+    }*/
 }

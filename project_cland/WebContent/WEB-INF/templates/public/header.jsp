@@ -134,7 +134,7 @@
                                     <li><a href="">Kiến Thức</a>
                                         <ul class="dropdown cat-know">
                                             <li ><a href="${pageContext.request.contextPath}/kien-thuc">Kiến Thức Bất Động Sản</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/cat/${objC.id}">Văn Bản Pháp Luật </a></li>
+                                            <li><a href="${pageContext.request.contextPath}/van-ban-phap-luat">Văn Bản Pháp Luật </a></li>
                                         </ul>
                                     </li>
                                     <li><a href="${pageContext.request.contextPath}/news">Tin Tức</a></li>

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import model.bean.District;
 import model.bean.Land;
 import model.bean.Seller;
-import model.bean.Users;
+import model.bean.User;
 
 @Repository
 public class SellerDAO {
@@ -33,7 +33,7 @@ public class SellerDAO {
 			String sql="SELECT id,name,phone,address FROM sellers ORDER BY id DESC LIMIT 1";
 			return jdbcTemplate.queryForObject(sql,  new BeanPropertyRowMapper<Seller>(Seller.class));
 	}
-	public int addItemContactUser(Users userLogin) {
+	public int addItemContactUser(User userLogin) {
 		String sql = "INSERT INTO sellers(name,phone,address,id_user) VALUES(?,?,'',?)";
 		return jdbcTemplate.update(sql, new Object[] {userLogin.getFirstname(),userLogin.getPhone(),userLogin.getId()});
 	}

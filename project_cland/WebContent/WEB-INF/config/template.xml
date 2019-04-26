@@ -12,6 +12,13 @@
     <put-attribute name="body" value="" />
     <put-attribute name="footer" value="/WEB-INF/templates/admin/footer.jsp" />
   </definition>
+  
+  
+  <!-- admin-index -->
+   <definition name="admin.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/index.jsp" />
+  </definition>
+  
   <!-- categories -->
   <definition name="admin.cat.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/category/index.jsp" />
@@ -64,6 +71,12 @@
   </definition>
   <definition name="admin.know.edit" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/know/edit.jsp" />
+  </definition>
+  <definition name="admin.document.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/know/document.jsp" />
+  </definition>
+   <definition name="admin.document.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/know/add-document.jsp" />
   </definition>
   
   <!-- adv -->
@@ -132,6 +145,9 @@
   <definition name="public.know.detail" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/jsp/public/know-detail.jsp" />
   </definition>
+  <definition name="public.know.doc" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/know-doc.jsp" />
+  </definition>
   <!--   login-->
 <definition name="public.login" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/jsp/public/auth/dangky.jsp" />
@@ -144,7 +160,9 @@
   <definition name="public.user.index" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/jsp/public/user/index.jsp" />
   </definition>
-  
+  <!--AUTH TEMPLATE -->
+  <definition name="auth.login" template="/WEB-INF/jsp/auth/login.jsp">
+  </definition> 
   
   <!--END PUBLIC TEMPLATE -->
 </tiles-definitions>

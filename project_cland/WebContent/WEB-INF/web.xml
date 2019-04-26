@@ -9,7 +9,7 @@
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value> 
+    <param-value>
 			/WEB-INF/config/jdbc.xml
 		</param-value>
   </context-param>
@@ -61,4 +61,5 @@
       <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
+  
 </web-app>

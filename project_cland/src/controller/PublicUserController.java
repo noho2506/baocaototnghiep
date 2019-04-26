@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Land;
-import model.bean.Users;
+import model.bean.User;
 import model.dao.CategoryDAO;
 import model.dao.DistrictDAO;
 import model.dao.LandDAO;
@@ -52,7 +52,7 @@ public class PublicUserController {
 	@ModelAttribute
 	public void commonsObject(ModelMap modelMap,HttpServletRequest request) {
 		HttpSession session=request.getSession();
-		Users userLogin = (Users)session.getAttribute("userLogin");
+		User userLogin = (User)session.getAttribute("userLogin");
 		modelMap.addAttribute("userLogin", userLogin);
 		modelMap.addAttribute("listCat", catDAO.getItems());
 		modelMap.addAttribute("listQuan", districtDAO.getItems());
@@ -95,7 +95,7 @@ public class PublicUserController {
 			land.setImage(fileName);
 		}
 		HttpSession session=request.getSession();
-		Users userLogin = (Users)session.getAttribute("userLogin");
+		User userLogin = (User)session.getAttribute("userLogin");
 		if (userLogin!=null) {
 			if(sellerDAO.addItemContactUser(userLogin) > 0) {
 				land.setId_contact(sellerDAO.getItemId().getId());

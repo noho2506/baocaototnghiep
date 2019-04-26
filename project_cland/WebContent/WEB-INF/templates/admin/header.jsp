@@ -75,7 +75,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+                                <a href="index.html" class="navbar-brand"><img src="${defines.urlAdmin}/assets/img/logo.png" alt=""></a>
                     
                             </header>
                     
@@ -106,7 +106,7 @@
                                     </a>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="login.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+                                    <a href="${pageContext.request.contextPath}/auth/logout" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
                                        class="btn btn-metis-1 btn-sm">
                                         <i class="fa fa-power-off"></i>
                                     </a>

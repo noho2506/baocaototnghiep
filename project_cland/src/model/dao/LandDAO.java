@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import constant.Defines;
 import model.bean.Adver;
 import model.bean.Land;
+import model.bean.NotifficationUser;
 
 @Repository
 public class LandDAO {
@@ -41,12 +42,30 @@ public class LandDAO {
 				+ " ORDER BY id DESC LIMIT 6";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Land>(Land.class));
 	}
+	public List<Land> getItemsLandImg() {
+		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,id_district FROM lands AS l " + 
+				" INNER JOIN category AS c ON l.id_cat = c.id "
+				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				+ " INNER JOIN district AS d ON d.id = id_district"
+				+ " WHERE state = 0 && active =1 "
+				+ " ORDER BY id DESC LIMIT 12";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Land>(Land.class));
+	}
 	public Land getItem(int id) {
 		try {
 			String sql = "SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
 					+ "INNER JOIN category AS c ON l.id_cat = c.id "
 					/*+ "INNER JOIN district AS d ON d.id = id_district"*/
 					+ " WHERE l.id = ?";
+			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<Land>(Land.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public Land getItemName(int id) {
+		try {
+			String sql = "SELECT title FROM lands  "
+					+ " WHERE id = ?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<Land>(Land.class));
 		} catch (Exception e) {
 			return null;
@@ -170,6 +189,7 @@ public class LandDAO {
 		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
 				+ "  INNER JOIN category AS c ON l.id_cat = c.id "
 				+ "INNER JOIN district AS d ON d.id = id_district"
+				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
 				+ " ORDER BY view DESC LIMIT 6 ";
 		return jdbcTemplate.query(sql,new BeanPropertyRowMapper<Land>(Land.class));
 	}
@@ -220,6 +240,31 @@ public class LandDAO {
 	public int getCountCatQuanBan(Integer id_district, Integer id_cat) {
 		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && year(create_day)>2013 AND year(create_day)<2019 && state = 1";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id_district,id_cat}, Integer.class);
+	}
+	public List<Land> getItemUser(int id) {
+		try {
+			String sql="SELECT l.id,title,create_day,id_contact,active,l.state,view FROM lands AS l "
+					+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+					+ "  INNER JOIN users  ON users.id = sellers.id_user "
+					+ " WHERE id_user = ? ";
+			return jdbcTemplate.query(sql, new Object[] {id},new BeanPropertyRowMapper<Land>(Land.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public int getIdUser(int id) {
+		String sql="SELECT id_user FROM `lands` AS l "
+				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				+ " WHERE l.id = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
+	}
+	public NotifficationUser getUser(int id_land, int id_cmt) {
+		try {
+			String sql="SELECT id_user,cmt_land.id as id_cmt,id_land FROM `lands` INNER JOIN sellers ON lands.id_contact = sellers.id INNER JOIN cmt_land ON lands.id= cmt_land.id_land WHERE lands.id =? && cmt_land.id=? ";
+			return jdbcTemplate.queryForObject(sql, new Object[] {id_land,id_cmt},new BeanPropertyRowMapper<NotifficationUser>(NotifficationUser.class));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

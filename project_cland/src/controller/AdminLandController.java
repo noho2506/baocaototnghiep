@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Land;
+import model.bean.NotifficationUser;
+import model.bean.User;
 import model.dao.CategoryDAO;
 import model.dao.DistrictDAO;
 import model.dao.LandDAO;
+import model.dao.NotiUserDAO;
 import model.dao.SellerDAO;
 import util.FileUtil;
 
@@ -41,17 +46,38 @@ public class AdminLandController {
 	private Defines defines;
 	@Autowired
 	private SellerDAO sellerDAO;
+	@Autowired
+	private NotiUserDAO notiDAO;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap,HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active5", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		modelMap.addAttribute("userLogin", userLogin);
 	}
 	@RequestMapping(value="/lands", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap,HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listLands", landDAO.getItems());
 		return "admin.land.index";
 	}
+	/*public String back(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		if(userLogin==null) {
+			return "redirect:/auth/login";
+		}
+	}*/
 	@RequestMapping(value="/lands/user", method= RequestMethod.GET)
-	public String indexUser(ModelMap modleMap){
+	public String indexUser(ModelMap modleMap,HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listLands", landDAO.getItemsUser());
 		return "admin.user.land.index";
 	}
@@ -61,10 +87,20 @@ public class AdminLandController {
 		//enable user
 		String chuoi = "";
 			if(active == 1) {
+				// bài viết bị chặn 
+				landDAO.changeEnable(id,1);
+				int id_user= landDAO.getIdUser(id);
+				NotifficationUser noti =  new NotifficationUser(0, id, 4, 0, "", id_user);
+				notiDAO.addItemNone(noti);
+				
 				landDAO.changeEnable(id,0);
 				chuoi="<a href='javascript:void(0)' onclick='changeEnable("+id+",0)'><img class='img-vip-none' src='"+ defines.getUrlAdmin() +"/assets/img/none.png' /></a>";
 			} else{
+				
 				landDAO.changeEnable(id,1);
+				int id_user= landDAO.getIdUser(id);
+				NotifficationUser noti =  new NotifficationUser(0, id, 2, 0, "", id_user);
+				notiDAO.addItem(noti);
 				chuoi = "<a href='javascript:void(0)' onclick='changeEnable("+id+",1)'><img class='img-vip' src='"+ defines.getUrlAdmin() +"/assets/img/tick2.jpg'/></a>";
 			}
 		return chuoi;
@@ -104,6 +140,11 @@ public class AdminLandController {
 			}
 			
 			if(landDAO.delItemUser(id) > 0) {
+				int id_user= landDAO.getIdUser(id);
+				
+				// đã bán
+				NotifficationUser noti =  new NotifficationUser(0, id, 3, 0, "", id_user);
+				notiDAO.addItemDaBan(noti);
 				ra.addFlashAttribute("msg", Defines.SUCCESS);
 			}else {
 				ra.addFlashAttribute("msg", Defines.ERROR);
@@ -145,6 +186,7 @@ public class AdminLandController {
 	}
 	@RequestMapping(value="/land/add", method=RequestMethod.GET)
 	public String add(ModelMap modelMap, RedirectAttributes ra) {
+		
 		modelMap.addAttribute("listCat", catDAO.getItems());
 		modelMap.addAttribute("listQuan", districtDAO.getItems());
 		return "admin.land.add";

@@ -10,7 +10,7 @@
         <div class="box">
             <header class="title tieude">
                 <div class="icons"><i class="fa fa-table"></i></div>
-                <h5>Kiến thức bất động sản</h5>
+                <h5>Kiến thức bất động sản </h5>
             </header>
              <c:if test="${not empty msg }">
 			      <div class="alert alert-success">

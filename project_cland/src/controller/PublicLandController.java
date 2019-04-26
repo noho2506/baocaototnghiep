@@ -23,7 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +46,7 @@ import model.bean.Contact;
 import model.bean.District;
 import model.bean.Know;
 import model.bean.Land;
-import model.bean.Users;
+import model.bean.User;
 import model.dao.AboutDAO;
 import model.dao.AdverDAO;
 import model.dao.CategoryDAO;
@@ -55,7 +59,6 @@ import model.dao.LandDAO;
 import model.dao.NewsDAO;
 import model.dao.ProjectDAO;
 import util.SlugUtil;
-
 @Controller
 public class PublicLandController {
 	@Autowired
@@ -84,7 +87,6 @@ public class PublicLandController {
 	private SlugUtil slugUtil;
 	@Autowired
 	private  ContactDAO contactDAO;
-	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
@@ -93,7 +95,7 @@ public class PublicLandController {
 	@ModelAttribute
 	public void commonsObject(ModelMap modelMap,HttpServletRequest request) {
 		HttpSession session=request.getSession();
-		Users userLogin = (Users)session.getAttribute("userLogin");
+		User userLogin = (User)session.getAttribute("userLogin");
 		modelMap.addAttribute("userLogin", userLogin);
 		modelMap.addAttribute("listCat", catDAO.getItems());
 		modelMap.addAttribute("listQuan", districtDAO.getItems());

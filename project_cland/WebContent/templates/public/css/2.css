@@ -3635,3 +3635,14 @@ margin-bottom: 15px !important;
 	background-color: #eeeeee;
 	padding-top: 10px;
 }
+.title-doc{
+	display:inline;
+}
+.des-doc p{
+	font-size: 15px;
+}
+.des-doc{
+	width:80%;
+}
+
+

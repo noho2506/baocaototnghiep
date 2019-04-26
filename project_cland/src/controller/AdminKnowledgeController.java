@@ -4,21 +4,28 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
+import model.bean.Document;
+import model.bean.FileBucket;
 import model.bean.Know;
+import model.bean.User;
+import model.dao.DocumentDAO;
 import model.dao.KnowDAO;
 import util.FileUtil;
 
@@ -26,15 +33,22 @@ import util.FileUtil;
 @RequestMapping("admin")
 public class AdminKnowledgeController {
 	@Autowired
+	private DocumentDAO docDAO;
+	@Autowired
 	private KnowDAO knowDAO;
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active4", "active");
 	}
 	@RequestMapping(value="/knows", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap, HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listknow", knowDAO.getItemsKnow());
 		return "admin.know.index";
 	}
@@ -145,5 +159,44 @@ public class AdminKnowledgeController {
 		//}
 		return "redirect:/admin/knows";
 	}
+	@RequestMapping(value="/document", method= RequestMethod.GET)
+	public String document(ModelMap modleMap){
+		modleMap.addAttribute("listDoc", docDAO.getItems());
+		return "admin.document.index";
+	}
+	
+	@RequestMapping(value = { "/add-document" }, method = RequestMethod.GET)
+	public String addDocuments(ModelMap model) {
+		return "admin.document.add";
+	}
+	@RequestMapping(value = { "/add-document" }, method = RequestMethod.POST)
+	public String uploadDocument(FileBucket fileBucket, ModelMap model,RedirectAttributes ra) throws IOException{
+			System.out.println("Fetching file");
+
+			Document document = new Document();
+			MultipartFile multipartFile = fileBucket.getFile();
+			document.setName(multipartFile.getOriginalFilename());
+			document.setDescription(fileBucket.getDescription());
+			document.setType(multipartFile.getContentType());
+			document.setContent(multipartFile.getBytes());
+			if(docDAO.addItem(document) > 0) {
+				ra.addFlashAttribute("msg", Defines.SUCCESS);
+			}else {
+				ra.addFlashAttribute("msg", Defines.ERROR);
+			}
+			
+			return "redirect:/admin/document";
+		}
+	@RequestMapping(value = { "/document/del/{id}" }, method = RequestMethod.GET)
+	public String deleteDocument(@PathVariable("id") int id,RedirectAttributes ra) {
+		if(docDAO.delItem(id) > 0) {
+			ra.addFlashAttribute("msg", Defines.SUCCESS);
+		}else {
+			ra.addFlashAttribute("msg", Defines.ERROR);
+		}
+		
+		return "redirect:/admin/document";
+	}
+	
 	
 }

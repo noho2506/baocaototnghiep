@@ -12,7 +12,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-8">
-                
                 <c:choose>
                 	<c:when test="${xacdinh==1 }">
 	                	<c:set var="quan" value="quan-"></c:set>
@@ -26,7 +25,7 @@
                     <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="900ms">
                         <!-- Room Thumbnail -->
                         <div class="room-thumbnail">
-                        	<a class="image-popup-no-margins" href="${pageContext.request.contextPath }/${slugUtil.makeSlug(cat.name)}-${cat.id}/${slugUtil.makeSlug(objA.title)}-${objA.id}">
+                        	<a class="image-popup-no-margins" href="${pageContext.request.contextPath }/dat-ban/${slugUtil.makeSlug(objA.title)}-${objA.id}">
                         		<img src="${pageContext.request.contextPath }/files/${objA.image}" alt="">
                         	</a>
                         </div>
@@ -38,7 +37,7 @@
                                 <h6 class="content-cat">Danh mục: <span class="content-cat-name" >${objA.name_cat }</span></h6>
                                 <h6 class="content-cat">Địa điểm: <span class="content-cat-name" >${objA.location }</span></h6>
                             </div>
-                            <a href="${pageContext.request.contextPath }/${slugUtil.makeSlug(cat.name)}-${cat.id}/${slugUtil.makeSlug(objA.title)}-${objA.id}" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            <a href="${pageContext.request.contextPath }/dat-ban/${slugUtil.makeSlug(objA.title)}-${objA.id}" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
 				</c:forEach>
@@ -81,12 +80,11 @@
                             <c:forEach begin="${a }"  end="${b}" var="i">
                             	<li class=" "><a class=" active <c:if test="${page==i }">acti</c:if> " href="${pageContext.request.contextPath }/${quan}${slugUtil.makeSlug(cat.name)}-${cat.id}/page-${i}">${i }</a></li>
                             </c:forEach>
-                            
                             <c:if test="${(page<(sumPage-3))}">
-                           		  <c:if test="${page<sumPage }"> <li id="abc"class=" disabled" ><a class=" " >...</a></li></c:if>
+                           		  <c:if test="${page<sumPage }"> <li id="abc" class=" disabled" ><a class=" " >...</a></li></c:if>
                             </c:if>
                             <c:if test="${ (page<sumPage-2)&&(sumPage>=5) }"><li class=""><a class="" href="${pageContext.request.contextPath }/${quan}${slugUtil.makeSlug(cat.name)}-${cat.id}/page-${sumPage}">${sumPage}</a></li></c:if>
-                           <li class="<c:if test="${page==sumPage }"> disabled</c:if>"><a class="" <c:if test="${page==sumPage }"> disabled="true" rel="prev"</c:if> <c:if test="${page!=sumPage }">  href="${pageContext.request.contextPath }/${quan}${slugUtil.makeSlug(cat.name)}-${cat.id}/page-${page+1}"</c:if>> <i class="fa fa-angle-right"></i> <i class="fa fa-angle-right"></i></a></li>
+                           <li class="<c:if test="${page==sumPage }"> disabled</c:if>"><a class="" <%-- <c:if test="${page==sumPage }"> disabled="true" rel="prev"</c:if>  --%><c:if test="${page!=sumPage }">  href="${pageContext.request.contextPath }/${quan}${slugUtil.makeSlug(cat.name)}-${cat.id}/page-${page+1}"</c:if>> <i class="fa fa-angle-right"></i> <i class="fa fa-angle-right"></i></a></li>
                         </ul>
                     </nav>
                    </c:if>

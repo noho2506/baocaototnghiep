@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.News;
+import model.bean.User;
 import model.dao.NewsDAO;
 import util.FileUtil;
 
@@ -34,9 +35,14 @@ public class AdminNewsController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active6", "active");
 	}
 	@RequestMapping(value="/news", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap, HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listNews", newsDAO.getItemsNews());
 		return "admin.news.index";
 	}

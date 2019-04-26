@@ -244,6 +244,8 @@ body {
 }
 .user-media .user-link .user-img {
   margin: 10px;
+      width: 90px;
+    height: 90px;
 }
 .user-media .user-link .user-label {
   top: 6px;
@@ -2598,4 +2600,10 @@ body.error .logo h1 {
 }
 .them{
 	background-image: url(<%=request.getContextPath() %>/templates/assets/img/a.png) 0px 0px no-repeat;
+}
+.act{
+	background: #1cc3b2;
+}
+.login-error{
+	color: red;
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import constant.Defines;
 import model.bean.Adver;
 import model.bean.News;
 import model.bean.Project;
+import model.bean.User;
 import model.dao.AdverDAO;
 import model.dao.NewsDAO;
 import util.FileUtil;
@@ -33,16 +35,34 @@ public class AdminAdverController {
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap,HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active1", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		if(userLogin==null) {
+			login();
+		}
+		modelMap.addAttribute("userLogin", userLogin);
+	}
+	public String login(){
+		return "redirect:/auth/login";
 	}
 	@RequestMapping(value="/advertisement", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap,HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listAdv", adverDAO.getItems());
 		return "admin.adv.index";
 	}
 	@RequestMapping(value= {"/adv/del/{id}"}, method=RequestMethod.GET)
 	public String del(@PathVariable("id") int id, RedirectAttributes ra, HttpServletRequest request) {
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		Adver adv = adverDAO.getItem(id);
 		if(adv != null) {
 			String fileName = adv.getImage();
@@ -62,7 +82,11 @@ public class AdminAdverController {
 		return "redirect:/admin/advertisement";
 	}
 	@RequestMapping(value="/adv/add", method=RequestMethod.GET)
-	public String add(ModelMap modelMap, RedirectAttributes ra) {
+	public String add(ModelMap modelMap, RedirectAttributes ra, HttpServletRequest request) {
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		return "admin.adv.add";
 	}
 	@RequestMapping(value="/adv/add", method=RequestMethod.POST)
@@ -102,7 +126,11 @@ public class AdminAdverController {
 		return "redirect:/admin/advertisement";
 	}
 	@RequestMapping(value="/adv/edit/{id}", method=RequestMethod.GET)
-	public String edit(@PathVariable("id") int id, ModelMap modelMap, RedirectAttributes ra) {
+	public String edit(@PathVariable("id") int id, ModelMap modelMap, RedirectAttributes ra, HttpServletRequest request) {
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		Adver adv = adverDAO.getItem(id);
 		if(adv != null) {
 			modelMap.addAttribute("obj", adv);

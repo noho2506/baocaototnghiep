@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,11 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Category;
+import model.bean.User;
 import model.dao.CategoryDAO;
-
 @Controller
 @RequestMapping("admin")
 public class AdminCategoryController {
+
 	@Autowired
 	private CategoryDAO catDAO;
 	@Autowired
@@ -24,14 +27,25 @@ public class AdminCategoryController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active", "active");
 	}
+
 	@RequestMapping(value="/cats", method= RequestMethod.GET)
-	public String index(ModelMap modleMap){
+	public String index(ModelMap modleMap, HttpServletRequest request){
+		
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		modleMap.addAttribute("listLand", catDAO.getItems());
 		return "admin.cat.index";
 	}
 	@RequestMapping(value="/cat/add", method=RequestMethod.GET)
-	public String add() {
+	public String add(HttpServletRequest request) {
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
+			return "redirect:/auth/login";
+		}
 		return "admin.cat.add";
 	}
 	@RequestMapping(value="/cat/add", method=RequestMethod.POST) 

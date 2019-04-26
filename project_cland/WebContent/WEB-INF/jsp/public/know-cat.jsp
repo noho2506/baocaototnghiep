@@ -45,7 +45,7 @@
                             	<c:when test="${page >4}">
                             		<c:set var="a" value ="${page-2 }"></c:set>
                             		 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/kien-thuc">1</a></li>
-                            		 <li  id="abc" class="page-item "><a  class="disabled page-link"  href="javascript:void(0)">...</a></li>
+                            		 <li  id="abc" class="page-item "><a  class="disabled page-link" >...</a></li>
                             		</c:when>
                             	<c:otherwise>
                             		<c:set var="a" value ="1"></c:set>
@@ -77,10 +77,10 @@
                             </c:forEach>
                             
                             <c:if test="${(page<(sumPage-3))}">
-                           		  <c:if test="${page<sumPage }"> <li id="abc"class="page-item " ><a class=" page-link disabled"  href="javascript:void(0)">...</a></li></c:if>
+                           		  <c:if test="${page<sumPage }"> <li id="abc"class="page-item " ><a class=" page-link disabled"  >...</a></li></c:if>
                             </c:if>
                             <c:if test="${ (page<sumPage-2)&&(sumPage>=5) }"><li class=""><a class="page-link" href="${pageContext.request.contextPath }/kien-thuc-page-${sumPage}">${sumPage}</a></li></c:if>
-                            <li class="page-item <c:if test="${page==sumPage }"> disabled</c:if>"><a class="page-link" href="${pageContext.request.contextPath }kien-thuc-/page-${page+1}"> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                            <li class="page-item <c:if test="${page==sumPage }"> disabled</c:if>"><a class="page-link" href="${pageContext.request.contextPath }/kien-thuc-page-${page+1}"> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
                         </ul>
                     </nav>
                    </c:if>
