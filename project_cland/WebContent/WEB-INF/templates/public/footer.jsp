@@ -115,11 +115,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="<%=request.getContextPath() %>/templates/public/js/slick.js" type="text/javascript" charset="utf-8"></script>
 	  <!-- Magnific Popup core JS file -->
 		<script src="<%=request.getContextPath() %>/templates/public/js/jquery.magnific-popup.min.js"></script>
+		
 		<%-- <script type = "text/javascript" src = "${defines.getUrlPublic() }/js/jquery-3.2.1.min.js"></script> --%>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+		
 		<script type = "text/javascript" src = "${defines.getUrlPublic() }/js/jquery.validate.min.js"></script>
   
-  <script type="text/javascript">
+ <!--  <script type="text/javascript">
     $(document).ready(function() {
     	$('.image-popup-no-margins').magnificPopup({
     		type: 'image',
@@ -137,7 +139,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     	});
 	});
 	
-</script>
+</script> -->
 <!-- Magnific Popup core JS file -->
 <script src="<%=request.getContextPath() %>/templates/public/js/main.js"></script>
 <script src="<%=request.getContextPath() %>/templates/public/js/scroll.js"></script>

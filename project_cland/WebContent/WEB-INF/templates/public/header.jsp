@@ -138,7 +138,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="${pageContext.request.contextPath}/news">Tin Tức</a></li>
-                                    <li><a href="${pageContext.request.contextPath }/thongke">Thông Kê</a></li>
+                                    <li><a href="${pageContext.request.contextPath }/thongke">Thống Kê</a></li>
                                 </ul>
 
                                 <!-- Search -->

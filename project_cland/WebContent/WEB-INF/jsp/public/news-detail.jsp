@@ -14,39 +14,32 @@
     <div class="roberto-rooms-area section-padding-100-0">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-8">
                     <!-- Single Room Details Area -->
                     <div class="single-room-details-area mb-50 view">
                         <h4>${getItemNews.title }</h4>
-                        <span> <i class=" fa fa-calendar"></i>${getItemNews.time }</span> <i class="fa fa-eye"></i> <span> Lượt xem: ${getItemNews.view} </span>
+                        <span> <i class=" fa fa-calendar"></i><fmt:formatDate value="${getItemNews.time }" pattern="dd-MM-yyyy" var="objTime"/>${objTime}</span> <i class="fa fa-eye"></i> <span> Lượt xem: ${getItemNews.view} </span>
                         <p>${getItemNews.description}</p>
                         <img alt="" src="${pageContext.request.contextPath }/files/${getItemNews.image}">
                         <p>${getItemNews.detail }</p>
-                        <p class="return"> <i class="fa fa-arrow-left"></i>Quay lại</p>
 					</div>
-                    <!-- Room Review -->
-                    <div class="room-review-area mb-100 new-add">
-                        <div class=" row-new" >
-							<p >Tin đọc nhiều nhất</p>
-							<div class="rating top">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                </div>
-                        </div>
-                        <!-- Single Review Area -->
-                       	 <div class="tin">
-                       	 	<ul>
-                       	 		<c:forEach items="${getItemNewsView}" var="objR">
-                       	 			<li><a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(objR.title)}-${objR.id}">${objR.title }</a><span class="news-time">(${objR.time })</span></li> 
-                       	 		</c:forEach>
-                       	 	</ul>
-                       	 </div>
+					<!-- Post Author Area -->
+                    <div class="post-author-area d-flex align-items-center justify-content-between mb-50">
+                        <ul class="popular-tags">
+                            <li><p class="return"> <a href="${pageContext.request.contextPath }/news">  <i class="fa fa-arrow-left"></i>Quay lại </a></p></li>
+                        </ul>
 
+                        <!-- Author Social Info -->
+                        <div class="author-social-info d-flex align-items-center">
+                            <p>Share:</p>
+                            <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                        </div>
                     </div>
-                    <div class="room-review-area mb-100 new-add">
+                    <div class="room-review-area mb-100 new-add room-review-area-news">
                         <div class=" row-new" >
 							<p >Tin mới nhất</p>
                         </div>
@@ -54,7 +47,7 @@
                        	 <div class="tin">
                        	 	<ul>
                        	 		<c:forEach items="${getItemCat}" var="obj">
-                       	 			<li><a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(obj.title)}-${obj.id}">${obj.title }</a><span class="news-time">(${obj.time })</span></li> 
+                       	 			<li><a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(obj.title)}-${obj.id}">${obj.title }</a><span class="news-time">(<fmt:formatDate value="${obj.time }" pattern="dd-MM-yyyy" var="objC"/>${objC})</span></li> 
                        	 		</c:forEach>
                        	 	</ul>
                        	 </div>
@@ -62,65 +55,43 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-3">
-                    <!-- Hotel Reservation Area -->
-                    <div class="hotel-reservation--area mb-100">
-                        <form action="#" method="post">
-                            <div class="form-group mb-30">
-                                <label for="checkInDate">Date</label>
-                                <div class="input-daterange" id="datepicker">
-                                    <div class="row no-gutters">
-                                        <div class="col-6">
-                                            <input type="text" class="input-small form-control" name="checkInDate" id="checkInDate" placeholder="Check In">
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Check Out">
-                                        </div>
+                <div class="col-12 col-lg-4">
+                    <!-- Recent Post -->
+                        <div class="single-widget-area mb-100">
+                            <h4 class="widget-title mb-30">Tin nhiều người đọc </h4>
+                            
+                             <c:forEach items="${getItemNewsView }" var="obj">
+                            <!-- Single Recent Post -->
+                            <div class="single-recent-post d-flex">
+                                <!-- Thumb -->
+                                <div class="post-thumb">
+                                    <a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(obj.title)}-${obj.id}"><img src="${pageContext.request.contextPath }/files/${obj.image}" alt=""></a>
+                                </div>
+                                <!-- Content -->
+                                <div class="post-content">
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <a  class="post-author"><fmt:formatDate value="${obj.time }" pattern="dd-MM-yyyy" var="objT"/>${objT}</a>
+                                        <a href="#" class="post-tutorial">Event</a>
                                     </div>
+                                    <a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(obj.title)}-${obj.id}" class="post-title">${obj.title }</a>
                                 </div>
                             </div>
-                            <div class="form-group mb-30">
-                                <label for="guests">Guests</label>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <select name="adults" id="guests" class="form-control">
-                                            <option value="adults">Adults</option>
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
-                                            <option value="04">04</option>
-                                            <option value="05">05</option>
-                                            <option value="06">06</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6">
-                                        <select name="children" id="children" class="form-control">
-                                            <option value="children">Children</option>
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
-                                            <option value="04">04</option>
-                                            <option value="05">05</option>
-                                            <option value="06">06</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-50">
-                                <div class="slider-range">
-                                    <div class="range-price">Max Price: $0 - $3000</div>
-                                    <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn roberto-btn w-100">Check Available</button>
-                            </div>
-                        </form>
-                    </div>
+                            </c:forEach>
+                            
+                        </div>
+
+
+                        <!-- Instagram -->
+                        <div class="single-widget-area mb-100 clearfix">
+                            <h4 class="widget-title mb-30">Hình Ảnh</h4>
+                            <!-- Instagram Feeds -->
+                            <ul class="instagram-feeds">
+                            	<c:forEach items="${getItemCat}" var="obj">
+                            		 <li><a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(obj.title)}-${obj.id}"><img src="${pageContext.request.contextPath }/files/${obj.image}" alt=""></a></li>
+                       	 		</c:forEach>
+                            </ul>
+                        </div>
                 </div>
             </div>
         </div>

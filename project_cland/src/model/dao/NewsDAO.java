@@ -52,6 +52,11 @@ public class NewsDAO {
 				+ " ORDER BY view DESC LIMIT 6";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<News>(News.class));
 	}
+	public List<News> getItemView4() {
+		String sql="SELECT id,title, description,image,time,detail,view FROM news "
+				+ " ORDER BY view DESC LIMIT 4";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<News>(News.class));
+	}
 	public int getView(int id) {
 		String sql = "SELECT view FROM news WHERE id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id},Integer.class);

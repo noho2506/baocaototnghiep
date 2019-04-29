@@ -1,11 +1,13 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 public class News {
 	private int id;
 	private String title;
 	private String description;
 	private String image;
-	private String time;
+	private Timestamp time;
 	private String  detail;
 	private int view;
 	
@@ -39,20 +41,21 @@ public class News {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
+
 	public String getDetail() {
 		return detail;
+	}
+	public Timestamp getTime() {
+		return time;
+	}
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
 	
-	public News(int id, String title, String description, String image, String time, String detail, int view) {
+	public News(int id, String title, String description, String image, Timestamp time, String detail, int view) {
 		super();
 		this.id = id;
 		this.title = title;

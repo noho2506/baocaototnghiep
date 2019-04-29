@@ -101,14 +101,14 @@ public class LandDAO {
 				+ "  LIMIT 4";
 		return jdbcTemplate.query(sql, new Object[] {id_cat},new BeanPropertyRowMapper<Land>(Land.class));
 	}
-	public List<Land> getItemsS(String  sql_id_district) {
+	public List<Land> getItemsCatS(String  sql_id_district, int offset) {
 		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
 				+ "INNER JOIN category AS c ON l.id_cat = c.id "
 				+ "INNER JOIN district AS d ON d.id = id_district"
 				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
 				+ " WHERE "+sql_id_district + " && state = 0 && active = 1 "
-				+ " ORDER BY l.id DESC LIMIT 5";
-		return jdbcTemplate.query(sql,new BeanPropertyRowMapper<Land>(Land.class));
+				+ " ORDER BY l.id DESC LIMIT ?,5";
+		return jdbcTemplate.query(sql, new Object[] {offset},new BeanPropertyRowMapper<Land>(Land.class));
 	}
 	public List<Land> getDienTich(int id_cat, int year, int quan) {
 		// TODO Auto-generated method stub
@@ -190,7 +190,17 @@ public class LandDAO {
 				+ "  INNER JOIN category AS c ON l.id_cat = c.id "
 				+ "INNER JOIN district AS d ON d.id = id_district"
 				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				+ " WHERE active=1 && state = 0 "
 				+ " ORDER BY view DESC LIMIT 6 ";
+		return jdbcTemplate.query(sql,new BeanPropertyRowMapper<Land>(Land.class));
+	}
+	public List<Land> getTopViewCat() {
+		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
+				+ "  INNER JOIN category AS c ON l.id_cat = c.id "
+				+ "INNER JOIN district AS d ON d.id = id_district"
+				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				+ " WHERE active=1 && state = 0 "
+				+ " ORDER BY view DESC LIMIT 4 ";
 		return jdbcTemplate.query(sql,new BeanPropertyRowMapper<Land>(Land.class));
 	}
 	public int getCheckItem(String name) {

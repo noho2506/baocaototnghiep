@@ -27,7 +27,7 @@
                         <!-- Room Content -->
                         <div class="new-content">
                             <h5><a class="content-news-detail" href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(objA.title)}-${objA.id}">${objA.title }</a></h5>
-                            <p class="new-content-date content-know "><i class="fa fa-calendar-o"></i>${objA.time }</p>
+                            <p class="new-content-date content-know "><i class="fa fa-calendar-o"></i><fmt:formatDate value="${objA.time }" pattern="dd/MM/yyyy" var="obj"/>${obj}</p>
                             <p>${slugUtil.substringWord(objA.description,150) }</p>
                             <a href="${pageContext.request.contextPath }/news/${slugUtil.makeSlug(objA.title)}-${objA.id}" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                         </div>
@@ -84,70 +84,35 @@
                 </div>
 
                   <div class="col-12 col-lg-4">
-                    <!-- Hotel Reservation Area -->
-                    <div class="hotel-reservation--area mb-100 news-cat">
-						<div>
-							<h4 >Công cụ tìm kiếm</h4>
-						</div>
-                        <form action="" method="post">
-                            <div class="form-group mb-30">
-                               <select name="id_cat" id="room" class="form-control">
-                               <option value="0">--Chọn loại đất-- </option>
-                               <c:set var="cid" value="${land.id_cat }"></c:set>
-                               	<c:forEach items="${listCat }" var="objC">
-			                            <c:choose>
-		                           			<c:when test="${objC.id == cid}">
-		                           				<c:set var="selected" value="selected = 'selected'"></c:set>
-			                           		</c:when>
-			                           		<c:otherwise>
-			                           			<c:set var="selected" value=""></c:set>
-			                           		</c:otherwise>
-		                           		</c:choose>
-									   <option ${selected} value="${objC.id }">${objC.name }</option>
-	                               	</c:forEach>
-                                </select>
+                   <!-- Newsletter -->
+                        <div class="single-widget-area mb-100">
+                            <div class="newsletter-form">
+                                <h5>Newsletter</h5>
+                                <p>Theo dõi bản tin của chúng tôi nhận thông báo cập nhật mới.</p>
+
+                                <form action="#" method="post">
+                                    <input type="email" name="nl-email" id="nlEmail" class="form-control" placeholder="Enter your email...">
+                                    <button type="submit" class="btn roberto-btn w-100">Subscribe</button>
+                                </form>
                             </div>
-                              <div class="form-group mb-30">
-                                <select name="id_district" id="room" class="form-control">
-                                	<option value="0">---- Chọn khu vực  ----</option>
-                                	 <c:set var="id" value="${land.id_district }"></c:set>
-	                                <c:forEach items="${listQuan }" var="objQ">
-	                                	<c:choose>
-		                           			<c:when test="${objQ.id == id}">
-		                           				<c:set var="selected" value="selected = 'selected'"></c:set>
-			                           		</c:when>
-			                           		<c:otherwise>
-			                           			<c:set var="selected" value=""></c:set>
-			                           		</c:otherwise>
-		                           		</c:choose>
-	                                 	<option ${selected} value="${objQ.id }">${objQ.name }</option>
-	                                </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group mb-30">
-                                <select name="dientich" id="room" class="form-control">
-                                	<option value="0">Chọn diện tích</option>
-                                    <option value="1" <c:if test="${dientich==1}">selected = 'selected'</c:if>>30- 100 m2</option>
-                                    <option value="2"<c:if test="${dientich==2}">selected = 'selected'</c:if>>100-250 m2</option>
-                                    <option value="3"<c:if test="${dientich==3}">selected = 'selected'</c:if>>250-500 m2</option>
-                                    <option value="4" <c:if test="${dientich==4}">selected = 'selected'</c:if>>500-1000 m2</option>
-                                    <option value="5" <c:if test="${dientich==5}">selected = 'selected'</c:if>>>=1000 m2</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-30">
-                                <select name="mucgia" id="adults" class="form-control">
-                                    <option value="0">Chọn mức giá</option>
-                                    <option value="1" <c:if test="${mucgia==1}">selected = 'selected'</c:if> >400 - 1 Tỷ</option>
-                                    <option value="2"<c:if test="${mucgia==2}">selected = 'selected'</c:if>>1 - 4 Tỷ</option>
-                                    <option value="3"<c:if test="${mucgia==3}">selected = 'selected'</c:if>>4 - 8 Tỷ</option>
-                                    <option value="4"<c:if test="${mucgia==4}">selected = 'selected'</c:if>> >= 8 Tỷ</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn roberto-btn w-100">Tìm Kiếm</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <!-- Popular Tags -->
+                        <div class="single-widget-area mb-100 clearfix">
+                            <h4 class="widget-title mb-30">Tags</h4>
+                            <!-- Popular Tags -->
+                            <ul class="popular-tags">
+                                <li><a href="${pageContext.request.contextPath}/news">Tin tức,</a></li>
+                                <li><a href="${pageContext.request.contextPath}/kien-thuc"> Kiến thức bất động sản,</a></li>
+                                <li><a href="${pageContext.request.contextPath}/van-ban-phap-luat"> Văn bản pháp luật ,</a></li>
+                                <li><a href="${pageContext.request.contextPath }/projects"> Dự án,</a></li>
+                                <c:forEach items="${listCat }" var="objC">
+                                   <li><a href="${pageContext.request.contextPath}/${slugUtil.makeSlug(objC.name)}-${objC.id}">${objC.name},</a></li>
+                                </c:forEach>
+                                <li><a href="${pageContext.request.contextPath }/thongke"> Thống kê</a></li>
+                            </ul>
+                        </div>
+
                     
                     <!-- Hotel Reservation Area -->
                     <div class="hotel-reservation--area mb-100 news-cat">

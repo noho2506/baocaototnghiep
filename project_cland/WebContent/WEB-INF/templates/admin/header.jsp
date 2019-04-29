@@ -17,6 +17,8 @@
     
     <meta name="msapplication-TileColor" content="#5bc0de" />
     <meta name="msapplication-TileImage" content="${defines.urlAdmin}/assets/img/metis-tile.png" />
+    
+    <link rel="stylesheet" href="${defines.urlAdmin}/assets/css/addland.css">
     <!-- Metis core stylesheet -->
     <link rel="stylesheet" href="${defines.urlAdmin}/assets/css/main.css">
     <!-- Bootstrap -->

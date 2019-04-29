@@ -36,7 +36,7 @@
         <div class="hotel-search-form-area">
             <div class="container-fluid">
                 <div class="hotel-search-form">
-                    <form action="${pageContext.request.contextPath}/cats" method="post">
+                    <form action="${pageContext.request.contextPath}/search" method="get">
                         <div class="row justify-content-between align-items-end">
                             <div class="col-5 col-md-2 col-lg-2">
                                 <label for="checkIn">Loại đất</label>
@@ -288,5 +288,5 @@
           });
        });
        </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     

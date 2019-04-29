@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +54,7 @@ import model.dao.CategoryDAO;
 import model.dao.CommentLandDAO;
 import model.dao.ContactDAO;
 import model.dao.DistrictDAO;
+import model.dao.DocumentDAO;
 import model.dao.ImgDAO;
 import model.dao.KnowDAO;
 import model.dao.LandDAO;
@@ -84,6 +86,8 @@ public class PublicLandController {
 	@Autowired
 	private AboutDAO aboutDAO;
 	@Autowired
+	private DocumentDAO docDAO;
+	@Autowired
 	private SlugUtil slugUtil;
 	@Autowired
 	private  ContactDAO contactDAO;
@@ -103,7 +107,21 @@ public class PublicLandController {
 	}
 	@RequestMapping("")
 	public String index(ModelMap modelMap){
-		modelMap.addAttribute("listLands", landDAO.getItemsLandPubic());
+		ArrayList<Land> land = (ArrayList<Land>) landDAO.getItemsLandPubic();
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
+		for (Land land2 : land) {
+			Date date1;
+			try {
+				// hàm chuyển string sang date
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(land2.getCreate_day());
+				// chuyển ngược lại 
+				land2.setCreate_day(newFormat.format(date1));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		modelMap.addAttribute("listLands", land);
 		modelMap.addAttribute("listProject", projectDAO.getItems());
 		// lấy khu vực cao nhất 
 		modelMap.addAttribute("getItemTop", landDAO.getItemTop());
@@ -114,6 +132,23 @@ public class PublicLandController {
 	}
 	@RequestMapping(value= {"/{nameCat}-{id}/page-{page}","/{nameCat}-{id}","quan-{nameQuan}-{id_district}","/quan-{nameQuan}-{id_district}/page-{page}"}, method=RequestMethod.GET)
 	public String cat(@PathVariable(value="id", required=false)Integer id,ModelMap modelMap,@PathVariable(value="page", required=false) Integer page,@PathVariable(value="id_district", required=false)Integer id_district ){
+		// edit formatdate trong landsview
+		ArrayList<Land> landview = (ArrayList<Land>) landDAO.getTopViewCat();
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
+		for (Land land2 : landview) {
+			Date date1;
+			try {
+				// hàm chuyển string sang date
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(land2.getCreate_day());
+				// chuyển ngược lại 
+				land2.setCreate_day(newFormat.format(date1));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// phân trang 
 		if(page == null) {
 			page=1;
 		}
@@ -124,6 +159,7 @@ public class PublicLandController {
 			sumPage =(int)Math.ceil((float)landDAO.getCountCat(id)/Defines.ROW_COUNT);
 			modelMap.addAttribute("getItemCat", landDAO.getItemsS(id,offset));
 			modelMap.addAttribute("cat",catDAO.getItem(id));
+			xacdinh=3;
 		}
 		if(id_district!=null) {
 			sumPage =(int)Math.ceil((float)landDAO.getCountCatQuan(id_district)/Defines.ROW_COUNT);
@@ -134,22 +170,54 @@ public class PublicLandController {
 		modelMap.addAttribute("sumPage", sumPage);
 		modelMap.addAttribute("page", page);
 		modelMap.addAttribute("xacdinh", xacdinh);
+		modelMap.addAttribute("getTopViewLand", landview);
 		return "public.land.cat";
 	}
-	@RequestMapping(value="cats", method=RequestMethod.POST)
-	public String cat(ModelMap modelMap,@RequestParam("id_cat")int id_cat,@RequestParam("id_district")int id_district,@RequestParam("dientich")int dientich,@RequestParam("mucgia")int mucgia,@RequestParam("ngaydang") String ngaydang){
+	// tìm kiếm 
+	@RequestMapping(value= {"search"}, method=RequestMethod.GET)
+	public String cat(ModelMap modelMap,@RequestParam("id_cat")int id_cat,@RequestParam("id_district")int id_district,@RequestParam("dientich")int dientich,@RequestParam("mucgia")int mucgia,@RequestParam("ngaydang") String ngaydang,@RequestParam(value="page", required=false) Integer page){
+		// edit formatdate 
+		ArrayList<Land> landview = (ArrayList<Land>) landDAO.getTopViewCat();
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
+		for (Land land2 : landview) {
+			Date date1;
+			try {
+				// hàm chuyển string sang date
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(land2.getCreate_day());
+				// chuyển ngược lại 
+				land2.setCreate_day(newFormat.format(date1));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// phân trang
+		if(page == null) {
+			page=1;
+		}
+		int sumPage = 0;
+		int offset = (page -1) * Defines.ROW_COUNT;
 		String sql_id= " ";
 		Land land = new Land(0, "", "", "", "", "", "", "", "", 0,"","","",id_cat, "", id_district, " ","",0,0);
 		sql_id=defines.search(id_cat,id_district,dientich,mucgia,ngaydang);
 		modelMap.addAttribute("getSoTin", landDAO.soTinSearch(sql_id));
 		System.out.println("tin:"+landDAO.soTinSearch(sql_id));
-		modelMap.addAttribute("getItemCat", landDAO.getItemsS(sql_id));
+		sumPage =(int)Math.ceil((float)landDAO.soTinSearch(sql_id)/5);
+		modelMap.addAttribute("sumPage", sumPage);
+		modelMap.addAttribute("getItemCat", landDAO.getItemsCatS(sql_id,offset));
+		modelMap.addAttribute("cat",catDAO.getItem(id_cat));
+		modelMap.addAttribute("page", page);
+		
+		modelMap.addAttribute("xacdinh",2);
 		modelMap.addAttribute("land", land);
 		modelMap.addAttribute("mucgia", mucgia);
 		modelMap.addAttribute("dientich", dientich);
+		modelMap.addAttribute("getTopViewLand", landview);
+		modelMap.addAttribute("quan",districtDAO.getItem(id_district));
+		modelMap.addAttribute("ngaydang",ngaydang);
 		return "public.land.cat";
 	}
-	@RequestMapping("/{nameCat}-{id}/{nameDetail}-{id}")
+	@RequestMapping("/dat-ban/{nameDetail}-{id}")
 	public String detail(@PathVariable("id")int id,ModelMap modelMap){
 		Land land= landDAO.getItem(id);
 		if (land!=null) {
@@ -872,7 +940,7 @@ public class PublicLandController {
 		}
 		modelMap.addAttribute("getItemNews", newsDAO.getItem(id));
 		modelMap.addAttribute("getItemCat", newsDAO.getItemNews());
-		modelMap.addAttribute("getItemNewsView", newsDAO.getItemView());
+		modelMap.addAttribute("getItemNewsView", newsDAO.getItemView4());
 		return "public.news.detail";
 	}
 	@RequestMapping(value={"/kien-thuc","/kien-thuc-page-{page}"})
@@ -969,5 +1037,14 @@ public class PublicLandController {
 		modelMap.addAttribute("getItemCat", knowDAO.getItemsCatTop());
 		modelMap.addAttribute("getItemKnowView", knowDAO.getItemView());
 		return "public.know.detail";
+	}
+	@RequestMapping("/van-ban-phap-luat")
+	public String know(ModelMap modelMap){
+		modelMap.addAttribute("listDoc", docDAO.getItems());
+		modelMap.addAttribute("getTopViewKnow", knowDAO.getItemViewKnow());
+		About about = aboutDAO.getItem();
+		modelMap.addAttribute("about", about);
+		modelMap.addAttribute("listImg", landDAO.getItemsLandImg());
+		return "public.know.doc";
 	}
 }

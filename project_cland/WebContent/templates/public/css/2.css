@@ -1278,6 +1278,7 @@ input:focus {
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; } }
   .single-room-area .room-thumbnail {
+      margin-left: 20px;
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
@@ -1294,7 +1295,13 @@ input:focus {
         width: 100%;
         margin-bottom: 30px; } }
     .single-room-area .room-thumbnail img {
-      border-radius: 4px; }
+      border-radius: 4px; 
+          width: 350px;
+    height: 230px;}
+     .single-room-area .room-thumbnail img:hover {
+       -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+      transition-duration: 500ms;}
   .single-room-area .room-content {
     position: relative;
     z-index: 1;
@@ -1926,7 +1933,9 @@ html .ui-button.ui-state-disabled:active {
 /* :: 17.0 Widget Area CSS */
 .single-widget-area {
   position: relative;
-  z-index: 1; }
+  z-index: 1;
+  margin-top: 30px;
+  }
   .single-widget-area .widget-title {
     font-size: 22px;
     display: block;
@@ -2012,16 +2021,20 @@ html .ui-button.ui-state-disabled:active {
         max-width: 80px;
         width: 80px; } }
     .single-recent-post .post-thumb img {
+    width:110px;
+    height:90px;
       border-radius: 3px; }
   .single-recent-post .post-content .post-title {
-    font-size: 16px;
+    font-size: 15px;
     display: block;
-    margin-bottom: 0; }
+    margin-bottom: 0; 
+      color: #333;}
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
       .single-recent-post .post-content .post-title {
         font-size: 13px; } }
     .single-recent-post .post-content .post-title:hover, .single-recent-post .post-content .post-title:focus {
-      color: #1cc3b2; }
+      color: #1cc3b2;
+          text-decoration: none; }
   .single-recent-post .post-content .post-meta {
     position: relative;
     z-index: 1;
@@ -2338,6 +2351,7 @@ html .ui-button.ui-state-disabled:active {
     line-height: 1.5; }
 
 .post-author-area {
+	    height: 48px;
   position: relative;
   z-index: 1;
   border-top: 1px solid #ebebeb;
@@ -3643,6 +3657,37 @@ margin-bottom: 15px !important;
 }
 .des-doc{
 	width:80%;
+}
+.title-module{
+ border-bottom: solid 4px #ece900;
+margin-bottom: 20px;}
+  .title-module span{
+ display: inline-block;
+ padding-bottom: 3px;
+ position: relative;
+ padding-right: 10px;
+ font-size: 16px;
+     		}
+     		.title-module span:before{
+     		content: '';
+ position: absolute;
+ bottom: -4px;
+ width: 100%;
+ height: 4px;
+ background: #ae7215;
+     		}
+.contact100-form-title-search{
+	padding: 25px 15px 47px 15px;
+}
+.contact100-form-title-search span{
+	color: #fff;
+	font-weight:bold;
+}
+.wrap-input100-search{
+	border-bottom: none;
+}
+.room-review-area-news{
+	border:none;
 }
 
 

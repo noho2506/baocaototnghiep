@@ -30,7 +30,7 @@
                         <!-- Room Content -->
                         <div class="new-content">
                             <h5><a href="${pageContext.request.contextPath }/kien-thuc/${slugUtil.makeSlug(objA.title)}-${objA.id}">${objA.title }</a></h5>
-                            <p class="new-content-date content-know "><i class="fa fa-calendar-o"></i>${objA.time }</p>
+                            <p class="new-content-date content-know "><i class="fa fa-calendar-o"></i><fmt:formatDate value="${objA.time }" pattern="dd/MM/yyyy" var="obj"/>${obj}</p>
                             <p class="new-content-date content-know "><i class="fa fa-search-plus"></i>Lượt xem: ${objA.view }</p>
                             <p class="content-know">${slugUtil.substringWord(objA.description,150) }</p>
                             <a href="${pageContext.request.contextPath }/kien-thuc/${slugUtil.makeSlug(objA.title)}-${objA.id}" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>

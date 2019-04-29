@@ -54,6 +54,7 @@
 
             <!-- Metis core scripts -->
             <script src="<%=request.getContextPath() %>/templates/admin/assets/js/core.js"></script>
+            <script src="<%=request.getContextPath() %>/templates/admin/assets/js/js-add-project.js"></script>
             <!-- Metis demo scripts -->
             <script src="<%=request.getContextPath() %>/templates/admin/assets/js/app.js"></script>
 

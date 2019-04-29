@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="/templates/taglib.jsp" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-  
-      <link rel="stylesheet" href="${defines.urlAdmin}/assets/css/addland.css">
                 <div id="content">
                     <div class="outer">
                         <div class="inner bg-light lter">
