@@ -18,9 +18,11 @@
 					<strong>${msg }</strong>
 				  </div>
 			  </c:if>
-			  <div class="add">
-            	<a href="${pageContext.request.contextPath}/admin/project/add" class="btn btn-info  btn-line">Thêm dự án </a>
-              </div>
+			 <div class="row">
+				  <div class="add">
+	            	<a href="${pageContext.request.contextPath}/admin/project/add" class="btn btn-info  btn-line">Thêm dự án </a>
+	              </div>
+			 </div>
             <div id="collapse4" class="body">
                 <table id="dataTable"  class="table table-bordered table-condensed table-hover table-striped">
                     <thead>
@@ -28,7 +30,7 @@
                     	<th>Id</th>
                         <th>Tiêu đề</th>
                         <th>Hình Ảnh</th>
-                        <th>NGười bán</th>
+                        <th >NGười bán</th>
                         <th>Vip</th>
                         <th>Chức năng</th>
                     </tr>
@@ -42,7 +44,7 @@
 	                                <td>
 	                                	<img class="img-input" src="${pageContext.request.contextPath}/files/${objL.trangchu}" alt="">
 	                                </td>
-	                                <td>${objL.sellers }</td>
+	                                <td >${objL.sellers }</td>
 	                                <td style="text-align: center" class="change-${objL.id }" >
 			                          	<a href= "javascript:void(0)" onclick="return changeEnable(${objL.id },${objL.vip })">
 				                          	<c:if test="${objL.vip == 1 }">

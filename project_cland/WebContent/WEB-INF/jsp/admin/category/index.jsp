@@ -61,4 +61,36 @@
             </div>
             
             <!-- /#wrap -->
+            <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBj1rvjSImuoRTilKwcBwsyV75lKQqHdd8&sensor=false"></script> -->
+            <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj1rvjSImuoRTilKwcBwsyV75lKQqHdd8&callback=initMap"></script> -->
+			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway&key=AIzaSyBj1rvjSImuoRTilKwcBwsyV75lKQqHdd8"></script>
+			<script type="text/javascript">
+			
+			function initMap() {
+				  var map = new google.maps.Map(document.getElementById('map'), {
+				    zoom: 8,
+				    center: {lat: -34.397, lng: 150.644}
+				  });
+				  var geocoder = new google.maps.Geocoder();
+
+				  document.getElementById('submit').addEventListener('click', function() {
+				    geocodeAddress(geocoder, map);
+				  });
+				}
+
+				function geocodeAddress(geocoder, resultsMap) {
+				  var address = document.getElementById('address').value;
+				  geocoder.geocode({'address': address}, function(results, status) {
+				    if (status === 'OK') {
+				      resultsMap.setCenter(results[0].geometry.location);
+				      var marker = new google.maps.Marker({
+				        map: resultsMap,
+				        position: results[0].geometry.location
+				      });
+				    } else {
+				      alert('Geocode was not successful for the following reason: ' + status);
+				    }
+				  });
+				}
+			</script>
             

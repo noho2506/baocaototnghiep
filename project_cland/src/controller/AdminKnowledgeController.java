@@ -2,14 +2,15 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
+import jdk.nashorn.internal.parser.JSONParser;
 import model.bean.Document;
 import model.bean.FileBucket;
 import model.bean.Know;
@@ -32,6 +34,11 @@ import util.FileUtil;
 @Controller
 @RequestMapping("admin")
 public class AdminKnowledgeController {
+
+    public final static Logger log = Logger.getLogger("OpenStreeMapUtils");
+
+    private static AdminKnowledgeController instance = null;
+    private JSONParser jsonParser;
 	@Autowired
 	private DocumentDAO docDAO;
 	@Autowired
@@ -39,9 +46,14 @@ public class AdminKnowledgeController {
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap, HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("active4", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		modelMap.addAttribute("userLogin", userLogin);
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 	@RequestMapping(value="/knows", method= RequestMethod.GET)
 	public String index(ModelMap modleMap, HttpServletRequest request){
@@ -50,6 +62,7 @@ public class AdminKnowledgeController {
 			return "redirect:/auth/login";
 		}
 		modleMap.addAttribute("listknow", knowDAO.getItemsKnow());
+		
 		return "admin.know.index";
 	}
 	@RequestMapping(value= {"/know/del/{id}","/know/del"}, method=RequestMethod.GET)

@@ -18,10 +18,19 @@ public class Land {
 	private String name_cat;
 	private int id_district;
 	private String name_district;
-	private String date_create;
+	private String sale_day;
 	private int active;
 	private int state;
+	private int view;
 	
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
 
 	public int getActive() {
 		return active;
@@ -152,20 +161,23 @@ public class Land {
 	public void setId_district(int id_district) {
 		this.id_district = id_district;
 	}
-	public String getDate_create() {
-		return date_create;
-	}
-	public void setDate_create(String date_create) {
-		this.date_create = date_create;
-	}
-
-
 	
+
+	public String getSale_day() {
+		return sale_day;
+	}
+
+	public void setSale_day(String sale_day) {
+		this.sale_day = sale_day;
+	}
+
+
+
 
 	public Land(int id, String title, String description, String price, String image, String create_day, String area,
 			String location, String detail, int id_contact, String name_contact, String phone, String address_contact,
-			int id_cat, String name_cat, int id_district, String name_district, String date_create, int active,
-			int state) {
+			int id_cat, String name_cat, int id_district, String name_district, String sale_day, int active, int state,
+			int view) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -184,9 +196,10 @@ public class Land {
 		this.name_cat = name_cat;
 		this.id_district = id_district;
 		this.name_district = name_district;
-		this.date_create = date_create;
+		this.sale_day = sale_day;
 		this.active = active;
 		this.state = state;
+		this.view = view;
 	}
 
 	public Land() {

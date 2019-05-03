@@ -72,6 +72,14 @@ public class KnowDAO {
 		String sql="SELECT count(*) AS sotin FROM knowledge ";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+	public int getCountKnow() {
+		String sql="SELECT count(*) AS sotin FROM knowledge ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	public Integer getCount(int i) {
+		String sql="SELECT count(*) AS sotin FROM knowledge WHERE Month(time)= "+i+  " && Year(time)= 2019" ; 
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	
 	
 

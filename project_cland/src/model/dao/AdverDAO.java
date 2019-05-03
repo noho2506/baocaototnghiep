@@ -46,6 +46,10 @@ public class AdverDAO {
 				+ " ORDER BY id DESC  LIMIT 3";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Adver>(Adver.class));
 	}
+	public int getCountAdv() {
+		String sql="SELECT count(*) AS sotin FROM advertisement ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	
 	
 

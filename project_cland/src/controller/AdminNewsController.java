@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,14 @@ public class AdminNewsController {
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap, HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("active6", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		modelMap.addAttribute("userLogin", userLogin);
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 	@RequestMapping(value="/news", method= RequestMethod.GET)
 	public String index(ModelMap modleMap, HttpServletRequest request){

@@ -33,6 +33,9 @@
   <definition name="admin.land.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/datnen/index.jsp" />
   </definition>
+  <definition name="admin.land.store" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/datnen/store.jsp" />
+  </definition>
    <definition name="admin.land.add" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/datnen/add.jsp" />
   </definition>
@@ -93,6 +96,16 @@
   <!-- contact -->
   <definition name="admin.contact.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/contact/index.jsp" />
+  </definition>
+  <!-- user -->
+  <definition name="admin.user.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/user/index.jsp" />
+  </definition>
+  <definition name="admin.user.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/user/add.jsp" />
+  </definition>
+   <definition name="admin.user.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/user/edit.jsp" />
   </definition>
   
    <!--END ADMIN TEMPLATE -->

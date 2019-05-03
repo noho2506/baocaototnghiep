@@ -132,17 +132,15 @@
                     
                                 <!-- .nav -->
                                 <ul class="nav navbar-nav">
-                                    <li><a href="dashboard.html">Dashboard</a></li>
-                                    <li class="active"><a href="table.html">Tables</a></li>
+                                    <li><a href="${pageContext.request.contextPath }/admin">Trang chủ</a></li>
+                                    <li class="active"><a href="${pageContext.request.contextPath }/admin/projects">Dự án</a></li>
                                     <li class='dropdown '>
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            Form Elements <b class="caret"></b>
+                                            Đất bán <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="form-general.html">General</a></li>
-                                            <li><a href="form-validation.html">Validation</a></li>
-                                            <li><a href="form-wysiwyg.html">WYSIWYG</a></li>
-                                            <li><a href="form-wizard.html">Wizard &amp; File Upload</a></li>
+                                            <li><a href="${pageContext.request.contextPath }/admin/lands">Admin</a></li>
+                                            <li><a href="${pageContext.request.contextPath }/admin/lands/user">Thành viên </a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -156,12 +154,12 @@
                                 <div class="search-bar">
                                     <form class="main-search" action="">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Live Search ...">
+                                            <!-- <input type="text" class="form-control" placeholder="Live Search ...">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-primary btn-sm text-muted" type="button">
                                                     <i class="fa fa-search"></i>
                                                 </button>
-                                            </span>
+                                            </span> -->
                                         </div>
                                     </form>
                                     <!-- /.main-search -->                                </div>

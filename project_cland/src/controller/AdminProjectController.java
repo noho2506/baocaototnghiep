@@ -3,9 +3,11 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +38,14 @@ public class AdminProjectController {
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap, HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("active7", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		modelMap.addAttribute("userLogin", userLogin);
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 	@RequestMapping(value="/projects", method= RequestMethod.GET)
 	public String index(ModelMap modleMap, HttpServletRequest request){
@@ -182,6 +189,7 @@ public class AdminProjectController {
 	@RequestMapping(value="/project/edit/{id}", method=RequestMethod.GET)
 	public String edit(ModelMap modelMap,@PathVariable("id") int id, RedirectAttributes ra) {
 		Project projects = projectDAO.getItem(id);
+		System.out.println(projects.getDescription());
 		if(projects != null) {
 			modelMap.addAttribute("project", projects);
 		}else {
@@ -223,7 +231,7 @@ public class AdminProjectController {
 			}
 			project.setTrangchu(trangchu);
 		}else {
-			old_Projects.setTrangchu(old_Projects.getTrangchu());
+			project.setTrangchu(old_Projects.getTrangchu());
 		}
 		if(!"".equals(gioithieu)) {
 			//có upload
@@ -244,7 +252,7 @@ public class AdminProjectController {
 			}
 			project.setGioithieu(gioithieu);
 		}else {
-			old_Projects.setGioithieu(old_Projects.getGioithieu());
+			project.setGioithieu(old_Projects.getGioithieu());
 		}
 		
 		if(!"".equals(tienich)) {
@@ -266,7 +274,7 @@ public class AdminProjectController {
 			}
 			project.setTienich(tienich);
 		}else {
-			old_Projects.setTienich(old_Projects.getTienich());
+			project.setTienich(old_Projects.getTienich());
 		}
 		
 		if(!"".equals(vitri)) {
@@ -288,7 +296,7 @@ public class AdminProjectController {
 			}
 			project.setVitri(vitri);
 		}else {
-			old_Projects.setVitri(old_Projects.getVitri());
+			project.setVitri(old_Projects.getVitri());
 		}
 		
 		if(!"".equals(thietke)) {
@@ -312,7 +320,7 @@ public class AdminProjectController {
 			}
 			project.setThietke(thietke);
 		}else {
-			old_Projects.setThietke(old_Projects.getThietke());
+			project.setThietke(old_Projects.getThietke());
 		}
 		project.setId(id);
 		project.setId_image(old_Projects.getId_image());

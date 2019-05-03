@@ -198,7 +198,7 @@ public class PublicLandController {
 		int sumPage = 0;
 		int offset = (page -1) * Defines.ROW_COUNT;
 		String sql_id= " ";
-		Land land = new Land(0, "", "", "", "", "", "", "", "", 0,"","","",id_cat, "", id_district, " ","",0,0);
+		Land land = new Land(0, "", "", "", "", "", "", "", "", 0,"","","",id_cat, "", id_district, " ","",0,0,0);
 		sql_id=defines.search(id_cat,id_district,dientich,mucgia,ngaydang);
 		modelMap.addAttribute("getSoTin", landDAO.soTinSearch(sql_id));
 		System.out.println("tin:"+landDAO.soTinSearch(sql_id));

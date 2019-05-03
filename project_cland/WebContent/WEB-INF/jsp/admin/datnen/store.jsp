@@ -8,52 +8,53 @@
 <div class="row">
   <div class="col-lg-12">
         <div class="box">
-            <header class="title">
+            <header class="title tieude">
                 <div class="icons"><i class="fa fa-table"></i></div>
-                <h5>Tin Quảng Cáo</h5>
+                <h5>Đất nền</h5>
             </header>
              <c:if test="${not empty msg }">
 			      <div class="alert alert-success">
 					<strong>${msg }</strong>
 				  </div>
 			  </c:if>
-			  <div class="row">
-				  <div class="add">
-	            	<a href="${pageContext.request.contextPath}/admin/adv/add" class="btn btn-metis-1  btn-line"><i class="fa fa-angle-double-right"></i>Thêm</a>
-	            </div>
-	          </div>
+			 <div class="row">
+			  <div class="add them" >
+	            	<a href="${pageContext.request.contextPath}/admin/lands" class="btn btn-info  btn-line" ><i class="fa fa-mail-reply-all"></i>Return</a>
+	              </div>
+			 </div>
             <div id="collapse4" class="body">
                 <table id="dataTable"  class="table table-bordered table-condensed table-hover table-striped">
                     <thead>
                     <tr>
                     	<th>Id</th>
-                        <th>Tên công ty </th>
+                        <th>Title</th>
                         <th>Image</th>
-                        <th>Ngày đăng</th>
+                        <th>Price</th>
+                        <th>Create_day</th>
+                        <th>Location</th>
                         <th>Chức năng</th>
                     </tr>
                     </thead>
                     <tbody>
-                    	<form action="">
-                    		
-                            <c:forEach items="${listAdv}" var="objL">
+                            <c:forEach items="${listLands}" var="objL">
                             
 	                            <tr>
 	                            	<td>${objL.id }</td>
 	                                <td>
-	                                	<p>${objL.name}</p>
+	                                	<a id="myBtn" href="${pageContext.request.contextPath}/admin/land/show/${objL.id}">${objL.title}</a>
 	                                </td>
 	                                <td>
 	                                	<img style="width:100px; height:100px" alt="" src="${pageContext.request.contextPath}/files/${objL.image }">
 	                                </td>
-	                                <td>${objL.time }</td>
+	                                <td>${objL.price }</td>
+	                                <td>${objL.create_day }</td>
+	                                <td>${objL.location }</td>
 	                                <td class="function-land">
-	                                	<a href="${pageContext.request.contextPath}/admin/adv/edit/${objL.id}" title="" ><span class="glyphicon glyphicon-pencil "></span> Sửa</a>
-	                              		<a href="${pageContext.request.contextPath}/admin/adv/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+	                              		<a href="${pageContext.request.contextPath}/admin/land/del/${objL.id}" onclick="return confirm('Bạn thực sự muốn xóa?')" title="" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
 	                                </td>
 	                            </tr>
+	                            
                             </c:forEach>
-                    	</form>
                            
                     </tbody>                </table>
                     <!-- The Modal -->

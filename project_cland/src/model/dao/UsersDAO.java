@@ -1,10 +1,14 @@
 package model.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import model.bean.Project;
+import model.bean.Roles;
 import model.bean.User;
 
 @Repository
@@ -24,7 +28,7 @@ public class UsersDAO {
 
 	public User checkUser(String username, String password) {
 		try {
-			String sql = "SELECT id,firstname,username,password,email,phone,gender,state,address,birthday FROM users WHERE username = ? AND password =?";
+			String sql = "SELECT id,firstname,username,password,email,phone,gender,state,address,birthday,role_id,enable FROM users WHERE username = ? AND password =?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {username,password}, new BeanPropertyRowMapper<User>(User.class));
 		} catch (Exception e) {
 			return null;
@@ -33,7 +37,7 @@ public class UsersDAO {
 	}
 	public User checkUserAdmin(String username, String password) {
 		try {
-			String sql = "SELECT id,firstname,username,password,email,phone,gender,state,address,birthday FROM users WHERE username = ? AND password =? AND enable = 1 && role_id=1";
+			String sql = "SELECT id,firstname,username,password,email,phone,gender,state,address,birthday,enable,role_id FROM users WHERE username = ? AND password =? AND enable = 1 && (role_id=1 || role_id=2)";
 			return jdbcTemplate.queryForObject(sql, new Object[] {username,password}, new BeanPropertyRowMapper<User>(User.class));
 		} catch (Exception e) {
 			return null;
@@ -58,7 +62,9 @@ public class UsersDAO {
 	}
 	public User getItem(int id) {
 		try {
-			String sql = "SELECT id,firstname,username,password,email,phone,gender,state,address,birthday FROM users WHERE id=?";
+			String sql = "SELECT id,firstname,username,password,email,users.role_id,phone,gender,state,address,birthday,enable FROM users "
+					+ " INNER JOIN roles ON roles.role_id = users.role_id"
+					+ " WHERE id=? ";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<User>(User.class));
 		} catch (Exception e) {
 			return null;
@@ -71,5 +77,48 @@ public class UsersDAO {
 		return jdbcTemplate.update(sql, new Object[] {name,birthday,address,state,gender,id});
 		
 	}
+
+	public List<User> getItems() {
+		String sql="SELECT id,firstname,username,password,email,phone,gender,state,address,birthday ,enable,users.role_id FROM users"
+				+ " INNER JOIN roles ON roles.role_id = users.role_id";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int addItemAdmin(User user) {
+		String sql ="INSERT INTO users(firstname, email,phone,username,password,role_id,enable) VALUES(?,?,?,?,?,?,1)";
+		return jdbcTemplate.update(sql, new Object[] {user.getFirstname(),user.getEmail(),user.getPhone(),user.getUsername(),user.getPassword(),user.getRole_id()});
+	}
+
+	public int changeEnable(int id, int i) {
+		String sql = "UPDATE users SET enable= ? WHERE id=?";
+		return jdbcTemplate.update(sql, new Object[] {i,id});
+		
+	}
+
+	public int delItem(int id) {
+		String sql ="DELETE FROM users WHERE id=?";
+		return jdbcTemplate.update(sql, new Object[] {id});
+	}
+
+	public List<Roles> getItemsRole() {
+		String sql="SELECT role_id,name FROM roles";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Roles>(Roles.class));
+	}
+
+	public int checkUsernameID(String username, int id) {
+		String sql="SELECT count(*) FROM users WHERE username = ? && id=?";
+		return jdbcTemplate.queryForObject(sql,new Object[] {username,id}, Integer.class);
+	}
+
+	public int editItem(User user) {
+		String sql = "UPDATE users SET firstname=?,password=?, role_id =? WHERE id=?";
+		return jdbcTemplate.update(sql, new Object[] {user.getFirstname(), user.getPassword(), user.getRole_id(), user.getId()});
+	}
+
+	public int getCountUser() {
+		String sql="SELECT count(*) AS sotin FROM users ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
 
 }

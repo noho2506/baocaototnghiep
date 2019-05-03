@@ -1,121 +1,135 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
+            <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file = "/templates/taglib.jsp" %>
-<div id="content">
+<%@include file="/templates/taglib.jsp" %>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,700'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+                <div id="content">
                     <div class="outer">
                         <div class="inner bg-light lter">
                             <!--Begin Datatables-->
 <div class="row">
-  <form action="" method="POST" enctype="multipart/form-data">
-   <div class="col-md-12 panel-info">
-       <div class="content-box-header panel-heading">
-           <div class="panel-title ">Sửa thông tin dự án</div>
-       </div>
-       <div class="content-box-large box-with-header">
-           <div>
-               <div class="row mb-10"></div>
+  <div class="col-lg-12">
+        <div class="box">
+            <header class="title tieude">
+                <div class="icons"><i class="fa fa-table"></i></div>
+                <h5>Sửa dự án</h5>
+            </header>
+             <c:if test="${not empty msg1 }">
+			      <div class="alert alert-success">
+					<strong>${msg }</strong>
+				  </div>
+			  </c:if>
+			   <form action="" method="POST" enctype="multipart/form-data">
+            <section id="fancyTabWidget" class="tabs t-tabs tabs-project">
+        <ul class="nav nav-tabs fancyTabs" role="tablist">
+        
+                    <li class="tab fancyTab active">
+                    <div class="arrow-down"><div class="arrow-down-inner"></div></div>	
+                        <a id="tab0" href="#tabBody0" role="tab" aria-controls="tabBody0" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-desktop"></span><span class="hidden-xs">Thông tin </span></a>
+                    	<div class="whiteBlock"></div>
+                    </li>
+                    
+                    <li class="tab fancyTab">
+                    <div class="arrow-down"><div class="arrow-down-inner"></div></div>
+                        <a id="tab1" href="#tabBody1" role="tab" aria-controls="tabBody1" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-firefox"></span><span class="hidden-xs">Hình Ảnh</span></a>
+                        <div class="whiteBlock"></div>
+                    </li>
+                    
+                   
+        </ul>
+        <div id="myTabContent" class="tab-content fancyTabContent" aria-live="polite">
+                    <div class="tab-pane  fade active in" id="tabBody0" role="tabpanel" aria-labelledby="tab0" aria-hidden="false" tabindex="0">
+                        <div>
+                        	<div class="row">
+                            	
+                                <div class="col-md-12">
+                                 <div class="form-group">
+			                           <label for="name">Tên dự án</label> <p style="color: red">${msg1 }</p>
+			                           <input type="text" name="title" value="${project.title }" class="form-control" placeholder="Nhập tên tin">
+			                       </div>
+			
+			                       <div class="form-group">
+			                           <label>Mô tả</label>
+			                           <textarea name="description"  class="form-control " rows="3">${project.description }</textarea>
+			                       </div>
+			
+			  						<div class="form-group">
+			                           <label for="name">Người bán</label>
+			                           <input type="text" name="sellers" value="${project.sellers }" class="form-control" placeholder="Nhập diện tích">
+			                       </div>
+			                       
+			                       <div class="form-group">
+			                           <label for="name">Giới thiệu </label>
+			                           <textarea name="overview"  class="form-control " rows="3">${project.overview }</textarea>
+			                       </div>
+			                       
+			                       <div class="form-group">
+			                           <label for="name">Tiện ích</label>
+			                           <textarea name="utility"  class="form-control " rows="3">${project.utility }</textarea>
+			                       </div>
+			
+			                       <div class="form-group">
+			                           <label>Vị trí</label>
+			                           <textarea name="location"  class="form-control " rows="3">${project.location }</textarea>
+			                       </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane  fade" id="tabBody1" role="tabpanel" aria-labelledby="tab1" aria-hidden="true" tabindex="0">
+                        <div class="row">
+                            	
+                                <div class="col-md-12">
+									<div class="form-group">
+		                           		<label>Hình ảnh</label>
+			                           <input type="file" name="tc" class="btn btn-default btn-default-input-add">
+			                           <img style="height:60px; width:60px; margin-left:120px"src="${pageContext.request.contextPath }/files/${project.trangchu}"/>
+			                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
+			                       </div>
+		                       		<div class="form-group">
+			                           <label>Hình ảnh(Giới thiệu)</label>
+			                           <input type="file" name="gt" class="btn btn-default btn-default-input-add ">
+			                            <img style="height:60px; width:60px; margin-left:50px"src="${pageContext.request.contextPath }/files/${project.gioithieu}"/>
+			                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
+			                       </div>
+			                       <div class="form-group">
+			                          <label>Hình ảnh(Tiện ích)</label>
+			                           <input type="file" name="ti" class="btn btn-default btn-default-input-add ">
+			                            <img style="height:60px; width:60px; margin-left:50px"src="${pageContext.request.contextPath }/files/${project.tienich}"/>
+			                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
+			                       </div>
+			                       <div class="form-group">
+			                           <label>Hình ảnh(Vị trí)</label>
+			                           <input type="file" name="vt" class="btn btn-default btn-default-input-add">
+			                            <img style="height:60px; width:60px; margin-left:50px"src="${pageContext.request.contextPath }/files/${project.vitri}"/>
+			                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
+			                       </div>
+			                       <div class="form-group">
+			                           <label>Hình ảnh(Thiết kế)</label>
+			                           <input type="file" name="tk" class="btn btn-default btn-default-input-add">
+			                           <img style="height:60px; width:60px; margin-left:50px"src="${pageContext.request.contextPath }/files/${project.thietke}"/>
+			                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
+			                       </div>  
+			                       <div class="col-sm-12 submit-pro">
+				                       <input type="submit" value="Sửa" class="btn btn-success" />
+				                       <input type="reset" value="Nhập lại" class="btn btn-default" />
+				                   </div>                                 
+                                </div>
+                            </div>
+                    </div>
+                    
+                    
+                    
+        </div>
 
-               <div class="row">
-                   <div class="col-sm-12">
-                      <div class="inf-project col-sm-6">
-	                       <div class="form-group">
-	                           <label for="name">Tên dự án</label> <p style="color: red">${msg1 }</p>
-	                           <input type="text" name="title" value="${project.title }" class="form-control" placeholder="Nhập tên tin">
-	                       </div>
-	
-	                       <div class="form-group">
-	                           <label>Mô tả</label>
-	                           <textarea name="description" value="${project.description }" class="form-control ckeditor" rows="3"></textarea>
-	                       </div>
-	
-	  						<div class="form-group">
-	                           <label for="name">Người bán</label>
-	                           <input type="text" name="sellers" value="${project.sellers }" class="form-control" placeholder="Nhập diện tích">
-	                       </div>
-	                       
-	                       <div class="form-group">
-	                           <label for="name">Giới thiệu </label>
-	                           <textarea name="overview" value="${project.overview }" class="form-control ckeditor" rows="3"></textarea>
-	                       </div>
-	                       
-	                       <div class="form-group">
-	                           <label for="name">Tiện ích</label>
-	                           <textarea name="utility" value="${news.utility }" class="form-control ckeditor" rows="3"></textarea>
-	                       </div>
-	
-	                       <div class="form-group">
-	                           <label>Vị trí</label>
-	                           <textarea name="location" value="${news.location }" class="form-control ckeditor" rows="3"></textarea>
-	                       </div>
-                      </div>
-                       <div class="img-project col-sm-5">
-                       <div class="form-group">
-	                           <label>Hình ảnh</label>
-	                           <input type="file" name="tc" class="btn btn-default">
-	                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-	                       </div>
-                       		<div class="form-group">
-	                           <label>Hình ảnh(Giới thiệu)</label>
-	                           <input type="file" name="gt" class="btn btn-default">
-	                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-	                       </div>
-	                       <div class="form-group">
-	                          <label>Hình ảnh(Tiện ích)</label>
-	                           <input type="file" name="ti" class="btn btn-default">
-	                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-	                       </div>
-	                       <div class="form-group">
-	                           <label>Hình ảnh(Vị trí)</label>
-	                           <input type="file" name="vt" class="btn btn-default">
-	                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-	                       </div>
-	                       <div class="form-group">
-	                           <label>Hình ảnh(Thiết kế)</label>
-	                           <input type="file" name="tk" class="btn btn-default">
-	                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-	                       </div>
-	                       
-                       <!--  <div class="form-group">
-                           <label>Hình ảnh(Giới thiệu)</label>
-                           <input type="file" name="gioithieu" class="btn btn-default" >
-                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-                       </div>
-                        <div class="form-group">
-                           <label>Hình ảnh(Tiện ích)</label>
-                           <input type="file" name="tienich" class="btn btn-default">
-                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-                       </div>
-                       <div class="form-group">
-                           <label>Hình ảnh(Vị trí)</label>
-                           <input type="file" name="vitri" class="btn btn-default" >
-                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-                       </div>
-                       <div class="form-group">
-                           <label>Hình ảnh(Thiết kế)</label>
-                           <input type="file" name="thietke" class="btn btn-default" >
-                           <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
-                       </div> -->
-                       </div>
-                       
-						<div class="row">
-		                   <div class="col-sm-12 submit-pro">
-		                       <input type="submit" value="Thêm" class="btn btn-success" />
-		                       <input type="reset" value="Nhập lại" class="btn btn-default" />
-		                   </div>
-	               		</div>
-
-                   </div>
-
-                   <div class="col-sm-6"></div>
-               </div>
-
-               <hr>
-
-
-           </div>
-       </div>
-   </div>
-   </form>
+    </section>
+    </form>
+        </div>
+    </div>
 </div>
 <!-- /.row -->
 <!--End Datatables-->
@@ -130,5 +144,6 @@
                     
                     <!-- /#right -->
             </div>
-            
             <!-- /#wrap -->
+            
+            

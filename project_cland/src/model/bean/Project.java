@@ -16,8 +16,15 @@ public class Project {
 	private String tienich;
 	private String vitri;
 	private String thietke;
+	private String create_day;
 	
 	
+	public String getCreate_day() {
+		return create_day;
+	}
+	public void setCreate_day(String create_day) {
+		this.create_day = create_day;
+	}
 	public int getVip() {
 		return vip;
 	}
@@ -113,7 +120,7 @@ public class Project {
 	
 	public Project(int id, String title, String description, String sellers, int id_image, int vip, String address,
 			String overview, String utility, String location, String trangchu, String gioithieu, String tienich,
-			String vitri, String thietke) {
+			String vitri, String thietke, String create_day) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -130,6 +137,7 @@ public class Project {
 		this.tienich = tienich;
 		this.vitri = vitri;
 		this.thietke = thietke;
+		this.create_day = create_day;
 	}
 	public Project() {
 		super();

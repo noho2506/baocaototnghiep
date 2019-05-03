@@ -38,8 +38,6 @@ text-align: center;}
                 		<div id="dientich"></div>
                 		<script type="text/javascript">
                 		var a =${getMap.values()};
-                		var b =${getMap.keySet()};
-                		console.log(b)
 							Highcharts.chart('dientich', {
 								  chart: {
 								    type: 'column'

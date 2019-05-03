@@ -2543,7 +2543,10 @@ body.error .logo h1 {
 	width:150px;
 }
 .add{
-	margin-top:20px;
+	    display: inline;
+    margin: 20px;
+    /* padding: 20px; */
+    float: left;
 }
 .box header .titile{
   background-image: linear-gradient(to bottom, #50ab50 0%, #f2f2f2 100%);
@@ -2841,4 +2844,17 @@ li.fancyTab.active a {
 	display:inline !important;
 	float: right;
     margin-right: 138px;
+}
+.firstname_info{
+	color:#337AB7;
+}
+.img-user-active{
+	height:26px;
+}
+.right-store{
+	display:inline;
+	float: right;
+}
+.option-land{
+	  text-align: center;
 }

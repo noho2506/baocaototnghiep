@@ -55,6 +55,8 @@ public class AdminLandController {
 		HttpSession session=request.getSession();
 		User userLogin = (User)session.getAttribute("userLoginAdmin");
 		modelMap.addAttribute("userLogin", userLogin);
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 	@RequestMapping(value="/lands", method= RequestMethod.GET)
 	public String index(ModelMap modleMap,HttpServletRequest request){
@@ -65,13 +67,15 @@ public class AdminLandController {
 		modleMap.addAttribute("listLands", landDAO.getItems());
 		return "admin.land.index";
 	}
-	/*public String back(HttpServletRequest request) {
-		HttpSession session=request.getSession();
-		User userLogin = (User)session.getAttribute("userLoginAdmin");
-		if(userLogin==null) {
+	@RequestMapping(value="/land/store", method= RequestMethod.GET)
+	public String store(ModelMap modleMap,HttpServletRequest request){
+		User userLogin = Defines.check(request);
+		if (userLogin==null) {
 			return "redirect:/auth/login";
 		}
-	}*/
+		modleMap.addAttribute("listLands", landDAO.getItemsStrore());
+		return "admin.land.store";
+	}
 	@RequestMapping(value="/lands/user", method= RequestMethod.GET)
 	public String indexUser(ModelMap modleMap,HttpServletRequest request){
 		User userLogin = Defines.check(request);
@@ -105,6 +109,30 @@ public class AdminLandController {
 			}
 		return chuoi;
 	}
+	// đã bán và lưu trữ
+	@RequestMapping(value="/land/store/{id}", method=RequestMethod.GET)
+	public String store(@PathVariable("id") int id, RedirectAttributes ra, HttpServletRequest request) {
+		Land land = landDAO.getItem(id);
+		if(land != null) {
+			String fileName = land.getImage();
+			if(!"".equals(fileName)) {
+				String appPath = request.getServletContext().getRealPath("");
+				String dirPath = appPath + Defines.DIR_UPLOAD;
+				File file = new File(dirPath + File.separator + fileName);
+				file.delete();
+			}
+			Date date = new Date();
+			SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+			String sale_day= fm.format(date);
+			if(landDAO.storeItem(id,sale_day) > 0) {
+				ra.addFlashAttribute("msg", Defines.SUCCESS);
+			}else {
+				ra.addFlashAttribute("msg", Defines.ERROR);
+			}
+		}
+		
+		return "redirect:/admin/lands";
+	}
 	
 	@RequestMapping(value="/land/del/{id}", method=RequestMethod.GET)
 	public String del(@PathVariable("id") int id, RedirectAttributes ra, HttpServletRequest request) {
@@ -125,7 +153,7 @@ public class AdminLandController {
 			}
 		}
 		
-		return "redirect:/admin/lands";
+		return "redirect:/admin/land/store";
 	}
 	@RequestMapping(value="/user/land/del/{id}", method=RequestMethod.GET)
 	public String delUser(@PathVariable("id") int id, RedirectAttributes ra, HttpServletRequest request) {
@@ -222,6 +250,10 @@ public class AdminLandController {
 				e.printStackTrace();
 			}
 			land.setImage(fileName);
+		}else {
+			modelMap.addAttribute("objLand", land);
+			ra.addFlashAttribute("msg1", "Vui lòng chọn hình");
+			return "redirect:/admin/land/add"; 
 		}
 		if(sellerDAO.addItemContact(land) > 0) {
 			land.setId_contact(sellerDAO.getItemId().getId());

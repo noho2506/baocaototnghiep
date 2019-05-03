@@ -20,7 +20,17 @@ public class LandDAO {
 		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,id_district FROM lands AS l "
 				+ " INNER JOIN category AS c ON l.id_cat = c.id "
 				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
-				+ " WHERE id_user = 0 "
+				+ " INNER JOIN district AS d ON d.id = id_district"
+				+ " WHERE id_user = 0 && state = 0 "
+				+ " ORDER BY l.id DESC ";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Land>(Land.class));
+	}
+	public List<Land> getItemsStrore() {
+		String sql="SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,id_district FROM lands AS l "
+				+ " INNER JOIN category AS c ON l.id_cat = c.id "
+				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				+ " INNER JOIN district AS d ON d.id = id_district"
+				+ " WHERE state = 1 "
 				+ " ORDER BY l.id DESC ";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Land>(Land.class));
 	}
@@ -89,7 +99,7 @@ public class LandDAO {
 	}
 	
 	public int countTinDangDaBan(int quan, int id_cat, int year) {
-		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(create_day)=? && state = 1 ";
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(sale_day)=? && state = 1 ";
 		return jdbcTemplate.queryForObject(sql, new Object[] {quan,id_cat,year}, Integer.class);
 	}
 	public List<Land> getItemsRelate(int id_cat) {
@@ -224,7 +234,7 @@ public class LandDAO {
 		return jdbcTemplate.query(sql, new Object[] {id_district,id,year},  new BeanPropertyRowMapper<Land>(Land.class));
 	}
 	public int countTinDangDaBan(Integer id_district, int id, int year, int thang) {
-		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(create_day)=? && Month(create_day)= ? && state = 1 ";
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(sale_day)=? && Month(sale_day)= ? && state = 1 ";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id_district,id,year,thang}, Integer.class);
 	}
 	public List<Land> getDienTichNam(int nam, Integer id_cat, Integer id_district, String area) {
@@ -244,11 +254,11 @@ public class LandDAO {
 		return jdbcTemplate.queryForObject(sql, new Object[] {id_district,id_cat}, Integer.class);
 	}
 	public int countTinDaDangBan(Integer id_district, int nam, Integer id_cat) {
-		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(create_day)=? && state= 1 ";
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && Year(sale_day)=? && state= 1 ";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id_district,id_cat,nam}, Integer.class);
 	}
 	public int getCountCatQuanBan(Integer id_district, Integer id_cat) {
-		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && year(create_day)>2013 AND year(create_day)<2019 && state = 1";
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE id_district=? && id_cat=? && year(sale_day)>2013 AND year(sale_day)<2019 && state = 1";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id_district,id_cat}, Integer.class);
 	}
 	public List<Land> getItemUser(int id) {
@@ -265,6 +275,7 @@ public class LandDAO {
 	public int getIdUser(int id) {
 		String sql="SELECT id_user FROM `lands` AS l "
 				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
+				
 				+ " WHERE l.id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[] {id}, Integer.class);
 	}
@@ -275,6 +286,18 @@ public class LandDAO {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	public int getCountLand() {
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE state = 0";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	public int storeItem(int id, String sale_day) {
+		String sql = "UPDATE lands SET state = 1, sale_day= ? WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[] {sale_day,id});
+	}
+	public int getCount(int thang) {
+		String sql="SELECT count(*) AS sotin FROM `lands` WHERE Month(create_day)= "+thang+  " && Year(create_day)= 2019" ; 
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
 }

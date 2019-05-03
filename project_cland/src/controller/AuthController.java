@@ -58,7 +58,7 @@ public class AuthController {
 			}
 			// có tài khoản trong list
 		}
-		return "redirect:/admin/lands";
+		return "redirect:/admin";
 	}
 	@RequestMapping("/logout")
 	public String index(HttpServletRequest request){

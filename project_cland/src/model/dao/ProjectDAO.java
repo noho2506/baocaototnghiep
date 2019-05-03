@@ -77,6 +77,14 @@ public class ProjectDAO {
 		return jdbcTemplate.update(sql, new Object[] {active,id});
 		
 	}
+	public int getCountPro() {
+		String sql="SELECT count(*) AS sotin FROM projects ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	public Integer getCount(int i) {
+		String sql="SELECT count(*) AS sotin FROM projects WHERE Month(create_day)= "+i+  " && Year(create_day)= 2019" ; 
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	
 
 }

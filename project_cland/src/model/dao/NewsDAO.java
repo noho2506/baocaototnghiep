@@ -69,6 +69,14 @@ public class NewsDAO {
 		String sql="SELECT count(*) AS sotin FROM news ";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+	public int getCountNews() {
+		String sql="SELECT count(*) AS sotin FROM news ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	public Integer getCount(int i) {
+		String sql="SELECT count(*) AS sotin FROM news WHERE Month(time)= "+i+  " && Year(time)= 2019" ; 
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	
 	
 

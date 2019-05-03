@@ -15,7 +15,7 @@
             </header>
              <c:if test="${not empty msg1 }">
 			      <div class="alert alert-success">
-					<strong>${msg }</strong>
+					<strong>${msg1}</strong>
 				  </div>
 			  </c:if>
             <div id="collapse4" class="body">

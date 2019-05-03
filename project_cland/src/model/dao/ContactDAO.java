@@ -35,4 +35,9 @@ public class ContactDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public int getCounContact() {
+		String sql="SELECT count(*) AS sotin FROM contact ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 }

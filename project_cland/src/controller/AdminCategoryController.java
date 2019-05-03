@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +28,14 @@ public class AdminCategoryController {
 	@Autowired
 	private Defines defines;
 	@ModelAttribute
-	public void addCommonsObject(ModelMap modelMap) {
+	public void addCommonsObject(ModelMap modelMap, HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("active", "active");
+		HttpSession session=request.getSession();
+		User userLogin = (User)session.getAttribute("userLoginAdmin");
+		modelMap.addAttribute("userLogin", userLogin);
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 
 	@RequestMapping(value="/cats", method= RequestMethod.GET)

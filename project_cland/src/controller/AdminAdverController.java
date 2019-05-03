@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,13 +41,9 @@ public class AdminAdverController {
 		modelMap.addAttribute("active1", "active");
 		HttpSession session=request.getSession();
 		User userLogin = (User)session.getAttribute("userLoginAdmin");
-		if(userLogin==null) {
-			login();
-		}
 		modelMap.addAttribute("userLogin", userLogin);
-	}
-	public String login(){
-		return "redirect:/auth/login";
+		Date date= new Date(session.getLastAccessedTime());
+		modelMap.addAttribute("date", date);
 	}
 	@RequestMapping(value="/advertisement", method= RequestMethod.GET)
 	public String index(ModelMap modleMap,HttpServletRequest request){

@@ -17,9 +17,14 @@
 					<strong>${msg }</strong>
 				  </div>
 			  </c:if>
-			  <div class="add them" >
-            	<a href="${pageContext.request.contextPath}/admin/land/add" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/a.png) 4px 4px no-repeat;">Thêm đất nền</a>
-              </div>
+			 <div class="row option-land" >
+				  <div class="add them" >
+	            	<a href="${pageContext.request.contextPath}/admin/land/add" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/a.png) 4px 4px no-repeat;">Thêm đất nền</a>
+	              </div>
+	               <div class="add them right-store"  >
+	            	<a href="${pageContext.request.contextPath}/admin/land/store" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/11111.jpg)-25px 5px  no-repeat;">Xem tin đã bán</a>
+	              </div>
+			 </div>
             <div id="collapse4" class="body">
                 <table id="dataTable"  class="table table-bordered table-condensed table-hover table-striped">
                     <thead>
@@ -49,7 +54,7 @@
 	                                <td>${objL.location }</td>
 	                                <td class="function-land">
 	                                	<a href="${pageContext.request.contextPath}/admin/land/edit/${objL.id}" title="" class="btn btn-primary"><span class="glyphicon glyphicon-pencil "></span> Sửa</a>
-	                              		<a href="${pageContext.request.contextPath}/admin/land/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+	                              		<a href="${pageContext.request.contextPath}/admin/land/store/${objL.id}" onclick="return confirm('Bài viết sẽ được lưu trữ')" title="" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Bán</a>
 	                                </td>
 	                            </tr>
 	                            

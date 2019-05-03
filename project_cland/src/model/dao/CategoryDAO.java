@@ -43,4 +43,8 @@ public class CategoryDAO {
 		}
 		
 	}
+	public int getCountCat() {
+		String sql="SELECT count(*) AS sotin FROM category ";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 }

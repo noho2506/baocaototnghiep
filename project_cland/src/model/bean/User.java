@@ -11,20 +11,22 @@ public class User {
 	private Integer gender;
 	private Integer state;
 	private String address;
-	private int enable;
-	private int role_Id;
+	private Integer enable;
+	private int role_id;
 	
-	public int getEnable() {
+	
+	public Integer getEnable() {
 		return enable;
 	}
-	public void setEnable(int enable) {
+	public void setEnable(Integer enable) {
 		this.enable = enable;
 	}
-	public int getRole_Id() {
-		return role_Id;
+	
+	public int getRole_id() {
+		return role_id;
 	}
-	public void setRole_Id(int role_Id) {
-		this.role_Id = role_Id;
+	public void setRole_id(int role_id) {
+		this.role_id = role_id;
 	}
 	public int getId() {
 		return id;
@@ -89,8 +91,9 @@ public class User {
 	}
 	
 	
+
 	public User(int id, String firstname, String email, String username, String phone, String password, String birthday,
-			Integer gender, Integer state, String address, int enable, int role_Id) {
+			Integer gender, Integer state, String address, Integer enable, int role_id) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -103,7 +106,7 @@ public class User {
 		this.state = state;
 		this.address = address;
 		this.enable = enable;
-		this.role_Id = role_Id;
+		this.role_id = role_id;
 	}
 	public User() {
 		super();

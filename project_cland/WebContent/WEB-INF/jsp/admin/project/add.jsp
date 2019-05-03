@@ -53,27 +53,27 @@
 			
 			                       <div class="form-group">
 			                           <label>Mô tả</label>
-			                           <textarea name="description" value="${project.description }" class="form-control ckeditor" rows="3"></textarea>
+			                           <textarea name="description"  class="form-control ckeditor" rows="3">${project.description }</textarea>
 			                       </div>
 			
 			  						<div class="form-group">
 			                           <label for="name">Người bán</label>
-			                           <input type="text" name="sellers" value="${project.sellers }" class="form-control" placeholder="Nhập diện tích">
+			                           <input value="${project.sellers }" type="text" name="sellers"  class="form-control" placeholder="Nhập diện tích">
 			                       </div>
 			                       
 			                       <div class="form-group">
 			                           <label for="name">Giới thiệu </label>
-			                           <textarea name="overview" value="${project.overview }" class="form-control ckeditor" rows="3"></textarea>
+			                           <textarea name="overview" class="form-control ckeditor" cols="12" rows="3">${project.overview }</textarea>
 			                       </div>
 			                       
 			                       <div class="form-group">
 			                           <label for="name">Tiện ích</label>
-			                           <textarea name="utility" value="${news.utility }" class="form-control ckeditor" rows="3"></textarea>
+			                           <textarea name="utility"  class="form-control ckeditor" rows="12" cols="12"> ${project.utility }</textarea>
 			                       </div>
 			
 			                       <div class="form-group">
 			                           <label>Vị trí</label>
-			                           <textarea name="location" value="${news.location }" class="form-control ckeditor" rows="3"></textarea>
+			                           <textarea name="location" class="form-control ckeditor" cols="12" rows="3">${project.location }"</textarea>
 			                       </div>
                                 </div>
                                 
