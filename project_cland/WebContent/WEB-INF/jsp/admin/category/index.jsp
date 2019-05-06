@@ -34,7 +34,7 @@
                             <c:forEach items="${listLand}" var="objL">
 	                            <tr>
 	                                <td>${objL.id}</td>
-	                                <td>${objL.name }</td>
+	                                <td style="color:red">${objL.name }</td>
 	                                <td class="function">
 	                                	<a href="${pageContext.request.contextPath}/admin/cat/edit/${objL.id}" title="" class="btn btn-primary"><span class="glyphicon glyphicon-pencil "></span> Sửa</a>
 	                              		<a href="${pageContext.request.contextPath}/admin/cat/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Xóa</a>

@@ -32,7 +32,7 @@
                             <c:forEach items="${listContact}" var="objL">
 	                            <tr>
 	                                <td>${objL.id}</td>
-	                                <td>${objL.name }</td>
+	                                <td style="color:#337AB7">${objL.name }</td>
 	                                <td>${objL.phone }</td>
 	                                <td>${objL.message }</td>
 	                            </tr>

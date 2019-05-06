@@ -66,6 +66,17 @@ public class LandDAO {
 			String sql = "SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
 					+ "INNER JOIN category AS c ON l.id_cat = c.id "
 					/*+ "INNER JOIN district AS d ON d.id = id_district"*/
+					+ " WHERE l.id = ? && active=1 && state =0";
+			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<Land>(Land.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public Land getItemUserAdmin(int id) {
+		try {
+			String sql = "SELECT l.id,title,description,price,image,create_day,area,location,detail,id_contact,id_cat,c.name AS name_cat,id_district FROM lands AS l "
+					+ "INNER JOIN category AS c ON l.id_cat = c.id "
+					/*+ "INNER JOIN district AS d ON d.id = id_district"*/
 					+ " WHERE l.id = ?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<Land>(Land.class));
 		} catch (Exception e) {
@@ -107,7 +118,7 @@ public class LandDAO {
 				+ "INNER JOIN category AS c ON l.id_cat = c.id "
 				+ "INNER JOIN district AS d ON d.id = id_district"
 				+ " INNER JOIN sellers  ON l.id_contact = sellers.id "
-				+ " WHERE id_cat= ?"
+				+ " WHERE id_cat= ? && state = 0 && active =1 "
 				+ "  LIMIT 4";
 		return jdbcTemplate.query(sql, new Object[] {id_cat},new BeanPropertyRowMapper<Land>(Land.class));
 	}

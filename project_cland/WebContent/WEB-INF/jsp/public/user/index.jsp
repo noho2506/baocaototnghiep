@@ -383,6 +383,11 @@ background: #f9fafb;
 <div>
 	<section style="background:#efe fe9;">
 	        <div class="container">
+	        <c:if test="${not empty msg1 }">
+			      <div class="alert alert-success">
+					<strong>${msg1 }</strong>
+				  </div>
+			  </c:if>
 	            <div class="row">
 	                <div class="board">
 	                    <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
@@ -428,6 +433,12 @@ background: #f9fafb;
 					                		<c:choose>
 					                			<c:when test="${ empty userLogin.birthday   }"> ${userLogin.birthday } </c:when>
 					                			<c:otherwise> Chưa cập nhật</c:otherwise>
+					                		</c:choose>
+					                	</p>
+					                	<p>Số điện thoại:  
+					                		<c:choose>
+					                			<c:when test="${ empty userLogin.phone   }">Chưa cập nhật </c:when>
+					                			<c:otherwise>${userLogin.phone } </c:otherwise>
 					                		</c:choose>
 					                	</p>
 					                	<p>Giới tính: 
@@ -502,7 +513,7 @@ background: #f9fafb;
 																	</span>
 																</div>
 															</div>
-															<p ><a href="${pageContext.request.contextPath }/dat-ban/${slugUtil.makeSlug(obj.title)}-${obj.id}" class="btn btn-success btn-outline-rounded green color-view"> Xem<span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a></p>
+															<c:if test="${(obj.state==0) && (obj.active==1) }"><p ><a href="${pageContext.request.contextPath }/dat-ban/${slugUtil.makeSlug(obj.title)}-${obj.id}" class="btn btn-success btn-outline-rounded green color-view"> Xem<span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a></p></c:if>
 														</div>
 													</div>
 												</div>
@@ -617,6 +628,10 @@ background: #f9fafb;
 										<div class="form-edit-user-info">
 											<p>Ngày sinh: </p>
 											<INPUT type="text" name ="birthday" placeholder="Vui lòng nhập ngày sinh " id="input-birthday" class=" input-nhap-firstname" value="${userLogin.birthday }"/>
+										</div>
+										<div class="form-edit-user-info">
+											<p>Phone: </p>
+											<INPUT type="text" name ="phone" placeholder="Vui lòng nhập sdt" id="input-phone" class=" input-nhap-firstname" value="${userLogin.phone}"/>
 										</div>
 										<div class="form-edit-user-info">
 											<p>Giới tính: </p>
@@ -740,7 +755,7 @@ $(".toggle-password").click(function() {
 		var temp_name = $('#input-firstname').val();
 		var temp_address = $('#input-address').val();
 		var temp_birthday = $('#input-birthday').val();
-		console.log(temp_birthday)
+		var temp_phone = $('#input-phone').val();
 		var temp_gender = $("input[name='gender']:checked").val();// nếu gán dữ liệu thì val('dkfjs')
 		var temp_state = $("input[name='state']:checked").val();// nếu gán dữ liệu thì val('dkfjs')
 		if (temp_name==''||temp_address==''||temp_birthday==''||temp_gender==null||temp_state==null) {
@@ -757,7 +772,8 @@ $(".toggle-password").click(function() {
 						address: temp_address,
 						gender: temp_gender,
 						state:temp_state,
-						temp_id:id
+						temp_id:id,
+						phone: temp_phone
 						},
 				success: function(data){// lấy dữ liệu về data// từ server gửi về data
 					// Xử lý thành công

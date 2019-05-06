@@ -25,8 +25,8 @@
                     	<th>Id</th>
                         <th>Title</th>
                         <th>Image</th>
-                        <th>Price</th>
-                        <th>Chức năng</th>
+                        <th>Create_day</th>
+                        <th>Function</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,13 +36,13 @@
                             
 	                            <tr>
 	                            	<td>${objL.id }</td>
-	                                <td>
+	                                <td style="color:#337AB7">
 	                                	<p>${objL.title}</p>
 	                                </td>
 	                                <td>
 	                                	<img style="width:100px; height:100px" alt="" src="${pageContext.request.contextPath}/files/${objL.image }">
 	                                </td>
-	                                <td>${objL.time }</td>
+	                                <td style="color:#D9534F"><fmt:formatDate type="both" pattern="dd MMM hh:mm" value="${objL.time }" var="a"></fmt:formatDate> ${a }</td>
 	                                <td class="function-land">
 	                                	<a href="${pageContext.request.contextPath}/admin/know/edit/${objL.id}" title="" ><span class="glyphicon glyphicon-pencil "></span> Sửa</a>
 	                              		<a href="${pageContext.request.contextPath}/admin/know/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>

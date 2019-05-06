@@ -10,7 +10,7 @@
         <div class="box">
             <header>
                 <div class="icons"><i class="fa fa-table"></i></div>
-                <h5>Thêm Văn bản pháo </h5>
+                <h5>Thêm Văn bản pháp luật </h5>
             </header>
             <div id="collapse4" class="body">
                 <table  class="table table-bordered table-condensed table-hover table-striped">

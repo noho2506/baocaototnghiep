@@ -60,6 +60,7 @@ import model.dao.KnowDAO;
 import model.dao.LandDAO;
 import model.dao.NewsDAO;
 import model.dao.ProjectDAO;
+import model.dao.SellerDAO;
 import util.SlugUtil;
 @Controller
 public class PublicLandController {
@@ -73,6 +74,8 @@ public class PublicLandController {
 	private NewsDAO newsDAO;
 	@Autowired 
 	private KnowDAO knowDAO;
+	@Autowired
+	private SellerDAO sellerDAO;
 	@Autowired 
 	private ProjectDAO projectDAO;
 	@Autowired 
@@ -218,11 +221,15 @@ public class PublicLandController {
 		return "public.land.cat";
 	}
 	@RequestMapping("/dat-ban/{nameDetail}-{id}")
-	public String detail(@PathVariable("id")int id,ModelMap modelMap){
+	public String detail(@PathVariable("id")int id,ModelMap modelMap, RedirectAttributes ra){
 		Land land= landDAO.getItem(id);
+		modelMap.addAttribute("seller", sellerDAO.getItem(land.getId_contact()));
 		if (land!=null) {
 			modelMap.addAttribute("getItem", landDAO.getItem(id));
 			modelMap.addAttribute("ListItemsR", landDAO.getItemsRelate(landDAO.getItem(id).getId_cat()));
+		}else {
+			ra.addFlashAttribute("msg1", "Bài viết không tồn tại  ");
+			return "redirect:/user";
 		}
 		modelMap.addAttribute("listCmt",cmtDAO.getCmt(id));
 		modelMap.addAttribute("cmtDAO",cmtDAO);
@@ -490,7 +497,7 @@ public class PublicLandController {
 			// thống kê theo năm và loại đất 
 			if ((chitieu==1)&&(year!=0)&&(id_cat!=0)) {
 				Pattern pattern = Pattern.compile("\\d*");
-				for (int i = 0; i < distric.size(); i++) {
+				/*for (int i = 0; i < distric.size(); i++) {
 					dt=0;
 					quan=i+1;
 					List<Land> str = landDAO.getDienTich(id_cat, year, quan);
@@ -500,14 +507,36 @@ public class PublicLandController {
 							 Matcher matcher = pattern.matcher(string);
 							 temp=0;
 							 // kieemr tra là số hay k
-							 
 							 if (matcher.matches()) {
 						            temp = Integer.parseInt(string);
 						            dt+=temp;
 						       }
 						}
 					}
+					System.out.println(" dt " + dt);
 					getMap.put(distric.get(i).getName(), dt);
+				}*/
+				for (District district : distric) {
+					dt=0;
+					List<Land> str = landDAO.getDienTich(id_cat, year, district.getId());
+					for (Land land : str) {
+						String[] chuoi =  land.getArea().split("\\s");
+						for (String string : chuoi) {
+							 Matcher matcher = pattern.matcher(string);
+							 temp=0;
+							 // kieemr tra là số hay k
+							 if (matcher.matches()) {
+						            temp = Integer.parseInt(string);
+						            dt+=temp;
+						       }
+						}
+					}
+					System.out.println(" dt " + dt);
+					getMap.put(district.getName(), dt);
+				}
+				for (String key : getMap.keySet()) {
+					System.out.println(key + " " + getMap.get(key));
+
 				}
 			}
 

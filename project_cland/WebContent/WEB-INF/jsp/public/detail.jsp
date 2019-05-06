@@ -48,9 +48,9 @@
                         <p>${getItem.detail}</p>
 						<strong>Thông tin liên lạc  </strong>
                         <ul>
-                            <li><i class="fa fa-check"></i>Tên liên lạc:</li>
-                            <li><i class="fa fa-check"></i> Địa chỉ: </li>
-                            <li><i class="fa fa-check"></i> Mobile: </li>
+                            <li><i class="fa fa-check"></i>Tên liên lạc: ${seller.name }</li>
+                            <li><i class="fa fa-check"></i> Mobile: ${seller.phone }</li>
+                            <li><i class="fa fa-check"></i> Địa chỉ: ${seller.address }</li>
                         </ul>
                     </div>
 

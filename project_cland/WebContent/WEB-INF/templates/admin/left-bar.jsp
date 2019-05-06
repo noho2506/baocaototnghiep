@@ -95,13 +95,13 @@
                                     </a>
                                   </li>
                                   <li>
-                                    <a <c:if test="${ not empty active2}">class="act"</c:if> href="${pageContext.request.contextPath }/admin/users">
+                                    <a <c:if test="${ not empty active8}">class="act"</c:if> href="${pageContext.request.contextPath }/admin/users">
                                       <i class="fa fa-landmark"></i>
                                       <span class="link-title">Người dùng </span>
                                     </a>
                                   </li>
                                   <li>
-                                    <a <c:if test="${ not empty active1}">class="active"</c:if> href="${pageContext.request.contextPath }/admin/advertisement">
+                                    <a <c:if test="${ not empty active1}">class="act"</c:if> href="${pageContext.request.contextPath }/admin/advertisement">
                                       <i class="fa fa fa-bar-chart-o"></i>
                                       <span class="link-title">
                                     Quảng Cáo

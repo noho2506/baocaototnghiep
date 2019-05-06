@@ -17,8 +17,10 @@
 					<strong>${msg }</strong>
 				  </div>
 			  </c:if>
+			  <div class="row">
 			  <div class="add them" >
             	<a href="${pageContext.request.contextPath}/admin/add-document" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/dib.png) 4px 4px no-repeat;">Thêm </a>
+              </div>
               </div>
             <div id="collapse4" class="body">
             <table id="dataTable"  class="table table-bordered table-condensed table-hover table-striped">
@@ -37,7 +39,7 @@
                             
 	                            <tr>
 	                            	<td>${objL.id }</td>
-	                                <td>
+	                                <td >
 	                                	<p>${objL.description}</p>
 	                                </td>
 	                                <td>${objL.type }</td>

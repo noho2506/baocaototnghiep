@@ -25,5 +25,6 @@ encoding//src/controller/AuthController.java=UTF-8
 encoding//src/controller/PublicAuthController.java=UTF-8
 encoding//src/controller/PublicLandController.java=UTF-8
 encoding//src/controller/PublicUserController.java=UTF-8
+encoding//src/model/dao/ContactDAO.java=UTF-8
 encoding//src/model/dao/LandDAO.java=UTF-8
 encoding//src/model/dao/SellerDAO.java=UTF-8

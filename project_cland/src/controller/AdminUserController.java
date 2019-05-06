@@ -35,6 +35,7 @@ public class AdminUserController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap, HttpServletRequest request) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active8", "active");
 		HttpSession session=request.getSession();
 		User userLogin = (User)session.getAttribute("userLoginAdmin");
 		modelMap.addAttribute("userLogin", userLogin);

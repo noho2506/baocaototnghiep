@@ -19,8 +19,10 @@
 					<strong>${msg }</strong>
 				  </div>
 			  </c:if>
-			  <div class="add them" >
-            	<a href="${pageContext.request.contextPath}/admin/user/add" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/a.png) 4px 4px no-repeat;">Thêm người dùng</a>
+			  <div class="row">
+				  <div class="add them" >
+	            	<a href="${pageContext.request.contextPath}/admin/user/add" class="btn btn-info  btn-line" style="background: url(<%=request.getContextPath() %>/templates/admin/assets/img/a.png) 4px 4px no-repeat;">Thêm người dùng</a>
+	              </div>
               </div>
             <div id="collapse4" class="body">
                 <table id="dataTable"  class="table table-bordered table-condensed table-hover table-striped">

@@ -1,13 +1,10 @@
 package model.dao;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import model.bean.District;
 import model.bean.Land;
 import model.bean.Seller;
 import model.bean.User;
@@ -36,5 +33,10 @@ public class SellerDAO {
 	public int addItemContactUser(User userLogin) {
 		String sql = "INSERT INTO sellers(name,phone,address,id_user) VALUES(?,?,'',?)";
 		return jdbcTemplate.update(sql, new Object[] {userLogin.getFirstname(),userLogin.getPhone(),userLogin.getId()});
+	}
+	public int updateInfo(String phone, String name, String address, Integer id) {
+		String sql = "UPDATE sellers SET phone=? ,name = ?,address=? WHERE id_user=?";
+		return jdbcTemplate.update(sql, new Object[] {phone,name,address,id});
+		
 	}
 }

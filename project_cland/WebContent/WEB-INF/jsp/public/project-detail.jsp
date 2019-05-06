@@ -89,7 +89,7 @@
 		
 		<div id="LIENHE" class="row lienhe">
 			<div class=" col-12  gioithieu-content content-lienhe">
-				<h4><i class="fa fa-angle-double-down"></i>Hình ảnh thiết kế</h4>
+				<h4><i class="fa fa-angle-double-down"></i>Liên hệ dự án</h4>
 			</div>
 			<div class="col-12">
 				<div class="main-footer-area back-lienhe">

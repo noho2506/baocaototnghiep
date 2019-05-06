@@ -27,6 +27,7 @@ import model.dao.LandDAO;
 import model.dao.NewsDAO;
 import model.dao.NotiUserDAO;
 import model.dao.ProjectDAO;
+import model.dao.SellerDAO;
 import model.dao.UsersDAO;
 import util.SlugUtil;
 
@@ -54,6 +55,8 @@ public class PublicAuthController {
 	private NotiUserDAO notiDAO;
 	@Autowired 
 	private CommentLandDAO cmtDAO;
+	@Autowired 
+	private SellerDAO sellerDAO;
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
@@ -205,12 +208,13 @@ public class PublicAuthController {
 		return null;
 	}
 	@RequestMapping(value="/user/index/info",method=RequestMethod.POST)
-	public String editInfo(@RequestParam("address") String address,@RequestParam("birthday") String birthday, @RequestParam("name") String name,@RequestParam("gender") Integer gender,@RequestParam("temp_id") Integer id,@RequestParam("state") Integer state,HttpServletResponse response, HttpServletRequest request){
+	public String editInfo(@RequestParam("address") String address,@RequestParam("birthday") String birthday, @RequestParam("name") String name,@RequestParam("gender") Integer gender,@RequestParam("temp_id") Integer id,@RequestParam("state") Integer state,@RequestParam("phone") String phone,HttpServletResponse response, HttpServletRequest request){
 		String chuoi="";
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-				userDAO.updateInfo(name,address,birthday,state,gender,id);
+				userDAO.updateInfo(phone,name,address,birthday,state,gender,id);
+				sellerDAO.updateInfo(phone,name,address,id);
 				User userLogin = userDAO.getItem(id);
 				HttpSession session=request.getSession();
 				session.setAttribute("userLogin",userLogin);

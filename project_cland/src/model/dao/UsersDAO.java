@@ -72,12 +72,6 @@ public class UsersDAO {
 		
 	}
 
-	public int updateInfo(String name, String address, String birthday, Integer state, Integer gender, Integer id) {
-		String sql = "UPDATE users SET firstname = ?, birthday=?,address=?,state=?,gender = ? WHERE id=?";
-		return jdbcTemplate.update(sql, new Object[] {name,birthday,address,state,gender,id});
-		
-	}
-
 	public List<User> getItems() {
 		String sql="SELECT id,firstname,username,password,email,phone,gender,state,address,birthday ,enable,users.role_id FROM users"
 				+ " INNER JOIN roles ON roles.role_id = users.role_id";
@@ -118,6 +112,13 @@ public class UsersDAO {
 	public int getCountUser() {
 		String sql="SELECT count(*) AS sotin FROM users ";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	public int updateInfo(String phone, String name, String address, String birthday, Integer state, Integer gender,
+			Integer id) {
+		String sql = "UPDATE users SET phone=? ,firstname = ?, birthday=?,address=?,state=?,gender = ? WHERE id=?";
+		return jdbcTemplate.update(sql, new Object[] {phone,name,birthday,address,state,gender,id});
+		
 	}
 	
 

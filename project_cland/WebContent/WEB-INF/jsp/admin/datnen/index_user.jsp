@@ -55,7 +55,7 @@
 									</td>
 	                                <td class="function-land">
 	                                	<a href="${pageContext.request.contextPath}/admin/land/edit/${objL.id}" title="" class="btn btn-primary"><span class=""></span> Sửa</a>
-	                              		<a href="${pageContext.request.contextPath}/admin/user/land/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" class="btn btn-danger"><span class=""></span> Xóa</a>
+	                              		<a href="${pageContext.request.contextPath}/admin/user/land/del/${objL.id}" onclick="return confirm('Bạn có thật sự muốn xóa?')" title="" class="btn btn-danger"><span class=""></span> Bán</a>
 	                                	
 	                                </td>
 	                            </tr>

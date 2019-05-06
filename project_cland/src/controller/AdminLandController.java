@@ -183,7 +183,7 @@ public class AdminLandController {
 	}
 	@RequestMapping(value="/land/show/{id}", method=RequestMethod.GET)
 	public String show(ModelMap modelMap,@PathVariable("id") int id, RedirectAttributes ra, HttpServletRequest request) {
-		Land land = landDAO.getItem(id);
+		Land land = landDAO.getItemUserAdmin(id);
 		
 		modelMap.addAttribute("land", land);
 		modelMap.addAttribute("seller", sellerDAO.getItem(land.getId_contact()));
